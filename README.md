@@ -140,31 +140,26 @@ Instead of hypothetical examples, this roadmap uses real, publicly available tes
 
 ```plaintext
 qa-automation-learning/
-├── .github/
-│   └── workflows/
-│       ├── tests.yml          # CI pipeline for running tests
-│       └── allure.yml         # Generate and publish Allure reports
-├── pages/                     # Page Object Models
-│   ├── base_page.py
-│   ├── login_page.py
-│   └── cart_page.py
-├── tests/                     # All test files
-│   ├── test_login.py
-│   ├── test_cart.py
-│   └── test_api.py
-├── utils/                     # Helper modules
-│   ├── api_client.py
-│   └── db_helpers.py          # Functions for database interactions
-├── data/                      # Test data files
-│   └── test_data.json
-├── reports/                   # Generated test reports
-│   └── allure-results/
-├── .gitignore
-├── README.md                  # This file
-├── requirements.txt           # Python dependencies
-├── conftest.py                # Global pytest fixtures
-├── docker-compose.yml         # For containerized test runs
-└── create_test_db.py          # Script to initialize the test database
+├── .github/                        # GitHub CI/CD pipelines
+├── data/                           # Test data (JSON, YAML, CSV)
+├── pages/                          # Page Object Models
+│   ├── BankingProject/             # POM for XYZ Bank
+│   ├── Demoqa/                     # POM for DemoQA
+│   └── Saucedemo/                  # POM for Swag Labs
+├── reports/                        # Test reports (Allure, HTML)
+├── tests/                          # All test files
+│   ├── 1_2Newbee/                  # Beginner tests
+│   │   └── first_tests.py
+│   ├── BankingProject/             # Tests for XYZ Bank
+│   ├── Demoqa/                     # Tests for DemoQA
+│   ├── Saucedemo/                  # Tests for Swag Labs
+│   └── utils/                      # Test-specific utilities
+├── .gitignore                      # Ignored files
+├── conftest.py                     # Global pytest fixtures
+├── docker-compose.yml              # Docker container for tests
+├── pytest.ini                      # Pytest configuration (markers, options)
+├── README.md                       # Project documentation
+└── requirements.txt                # Python dependencies
 ```
 ---
 
