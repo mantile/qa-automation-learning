@@ -9,9 +9,11 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![GitHub last commit](https://img.shields.io/github/last-commit/mantile/qa-automation-learning.svg)](https://github.com/mantile/qa-automation-learning/commits/main)
 [![GitHub repo size](https://img.shields.io/github/repo-size/mantile/qa-automation-learning.svg)](https://github.com/mantile/qa-automation-learning)
-
+[![YouTrack](https://img.shields.io/badge/YouTrack-Whiteboard-0052CC.svg)](https://mantile.youtrack.cloud/whiteboards/500-0)
 [![Tests Status](https://github.com/mantile/qa-automation-learning/actions/workflows/tests.yml/badge.svg?branch=main)](https://github.com/mantile/qa-automation-learning/actions/workflows/tests.yml)
 [![Allure Report](https://img.shields.io/badge/Allure-Report-1E90FF.svg)](https://github.com/mantile/qa-automation-learning/actions/workflows/allure.yml)
+
+
 
 ---
 
