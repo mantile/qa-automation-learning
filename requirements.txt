@@ -1,0 +1,26 @@
+# Core testing framework
+pytest==7.4.3
+pytest-xdist==3.5.0
+pytest-html==4.1.1
+pytest-playwright==0.4.3
+
+# Browser automation
+playwright==1.40.0
+
+# API testing
+requests==2.31.0
+
+# Reporting
+allure-pytest==2.13.2
+
+# Code quality
+black==23.12.1
+flake8==7.0.0
+
+# Database (SQLite is built-in, but for PostgreSQL/MySQL support)
+# psycopg2-binary==2.9.9  # For PostgreSQL
+# mysql-connector-python==8.2.0  # For MySQL
+
+# Utilities
+python-dotenv==1.0.0
+pyyaml==6.0.1
