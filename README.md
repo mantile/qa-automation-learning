@@ -90,7 +90,7 @@ Instead of hypothetical examples, this roadmap uses real, publicly available tes
 | :--- | :--- | :--- |
 | Playwright Setup | ✅ | [Playwright Installation](https://playwright.dev/python/docs/intro) |
 | Locators (CSS, XPath, Text) | ✅ | [Locators Guide](https://playwright.dev/docs/locators) |
-| First Test Script | 🔄 | - |
+| First Test Script | ✅ | - |
 
 **Project:** GitHub login test (open page → click → verify URL)
 
