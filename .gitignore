@@ -216,3 +216,34 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# cover
+htmlcov/
+.coverage
+.coverage.*
+coverage.xml
+
+# cache pytest и hypothesis
+.pytest_cache/
+.hypothesis/
+
+# cache mypy
+.mypy_cache/
+
+# venv
+venv/
+.venv/
+env/
+.env
+
+# Jupyter Notebook
+.ipynb_checkpoints/
+
+# logs
+pytestdebug.log
+test-output.xml
+results.xml
+
+# IDE
+.vscode/
+.idea/
