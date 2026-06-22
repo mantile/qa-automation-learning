@@ -1,0 +1,11 @@
+version: '3.8'
+
+services:
+  tests:
+    build: .
+    volumes:
+      - ./reports:/app/reports
+      - ./screenshots:/app/screenshots
+    environment:
+      - PYTHONUNBUFFERED=1
+    command: pytest --alluredir=reports/allure-results
