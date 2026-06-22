@@ -251,3 +251,9 @@ allure serve reports/allure-results
 This project is for educational purposes. Licensed under the MIT License.
 
 ## 🚀 Keep learning and building!
+[![GitHub stars](https://img.shields.io/github/stars/mantile/qa-automation-learning.svg?style=social&label=Star)](https://github.com/mantile/qa-automation-learning/stargazers)
+[![GitHub forks](https://img.shields.io/github/forks/mantile/qa-automation-learning.svg?style=social&label=Fork)](https://github.com/mantile/qa-automation-learning/network/members)
+[![GitHub watchers](https://img.shields.io/github/watchers/mantile/qa-automation-learning.svg?style=social&label=Watch)](https://github.com/mantile/qa-automation-learning/watchers)
+[![GitHub issues](https://img.shields.io/github/issues/mantile/qa-automation-learning.svg)](https://github.com/mantile/qa-automation-learning/issues)
+[![GitHub contributors](https://img.shields.io/github/contributors/mantile/qa-automation-learning.svg)](https://github.com/mantile/qa-automation-learning/graphs/contributors)
+[![GitHub last commit](https://img.shields.io/github/last-commit/mantile/qa-automation-learning.svg)](https://github.com/mantile/qa-automation-learning/commits/main)
