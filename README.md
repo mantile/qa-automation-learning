@@ -135,7 +135,77 @@ Instead of hypothetical examples, this roadmap uses real, publicly available tes
 **Project:** Add DB checks, Allure reports, and containerization
 
 ---
+### 🧱 PHASE 6: Deep Foundation
+**Goal:** Understand the system as a whole, not just test cases.
 
+| Topic | Status | Resources |
+| :--- | :--- | :--- |
+| Deep Understanding of Application Architecture | 🔄 | - |
+| Python: From Basic to Advanced (OOP, Async, Decorators) | 🔄 | [Fluent Python](https://www.oreilly.com/library/view/fluent-python-2nd/9781492056348/) |
+| Git at Team Level (Rebase, Merge, Code Review) | 🔄 | [Git Docs](https://git-scm.com/doc) |
+| SQL: From SELECT to Advanced Queries (JOIN, Windows, Transactions) | 🔄 | [SQL Tutorial](https://www.w3schools.com/sql/) |
+| Docker: Basic Proficiency | 🔄 | [Docker Docs](https://docs.docker.com/) |
+
+**Project:** Set up Docker environment, write advanced SQL queries, participate in code reviews
+
+---
+
+### 🏗️ PHASE 7: Framework Architecture
+**Goal:** Design the test framework as a standalone product.
+
+| Topic | Status | Resources |
+| :--- | :--- | :--- |
+| Architectural Patterns (POM, Factory, Singleton, Chain) | 🔄 | [Design Patterns](https://refactoring.guru/design-patterns) |
+| Advanced Pytest (Custom Fixtures, Plugins, Hooks) | 🔄 | [Pytest Docs](https://docs.pytest.org/) |
+| API Testing at Middle Level (Contract Testing, OAuth, GraphQL) | 🔄 | [Requests Library](https://requests.readthedocs.io/) |
+| Allure: Advanced Reporting (Steps, Attachments, Jira Integration) | 🔄 | [Allure Docs](https://docs.qameta.io/allure/) |
+| Test Data Management (Factories, Cleanup Strategies) | 🔄 | - |
+
+**Project:** Refactor framework with design patterns, implement contract tests, create custom Allure reports
+
+---
+
+### ⚙️ PHASE 8: CI/CD & Infrastructure
+**Goal:** Tests are part of the development ecosystem.
+
+| Topic | Status | Resources |
+| :--- | :--- | :--- |
+| Advanced CI/CD (Multi-branch, Parallel Runs, Artifacts, Triggers) | 🔄 | [GitHub Actions Docs](https://docs.github.com/en/actions) |
+| Docker & Containerization (Kubernetes, docker-compose) | 🔄 | [Kubernetes Docs](https://kubernetes.io/docs/) |
+| Cloud Technologies (S3, Azure Blob, BrowserStack) | 🔄 | - |
+| Test Monitoring (Alerts, History, Grafana/Kibana) | 🔄 | [Grafana Docs](https://grafana.com/docs/) |
+
+**Project:** Set up parallel execution in CI, configure alerts, implement monitoring dashboards
+
+---
+
+### 🎯 PHASE 9: Test Strategy & Shift-Left
+**Goal:** Not just find bugs — prevent them.
+
+| Topic | Status | Resources |
+| :--- | :--- | :--- |
+| Test Strategy (Test Plan, Risk-Based Testing, Tool Selection) | 🔄 | - |
+| Team Collaboration (Code Review, Refinement, Pair Testing) | 🔄 | - |
+| BDD (Cucumber/Behave, Gherkin) | 🔄 | [Cucumber Docs](https://cucumber.io/docs/) |
+| Quality Metrics (Coverage, Flaky Rate, Execution Time) | 🔄 | - |
+
+**Project:** Create a Test Plan, implement BDD for a project, set up quality dashboards
+
+---
+
+### 📈 PHASE 10: Performance & Leadership
+**Goal:** Go beyond functional testing.
+
+| Topic | Status | Resources |
+| :--- | :--- | :--- |
+| Performance/Load Testing (JMeter, k6) | 🔄 | [k6 Docs](https://k6.io/docs/) |
+| Security Testing (OWASP ZAP, SQL Injection, XSS) | 🔄 | [OWASP ZAP Docs](https://www.zaproxy.org/docs/) |
+| Maintenance & Optimization (Flaky Fixes, Speed Optimization) | 🔄 | - |
+| Mentoring (Code Reviews, Workshops, Documentation) | 🔄 | - |
+
+**Project:** Write load tests, run security scans, mentor junior engineers
+
+---
 ### 📂 Repository Structure
 
 ```plaintext
