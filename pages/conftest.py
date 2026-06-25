@@ -36,21 +36,3 @@ def user_standart_login(main_page):
     main_page.fill('#password', user_passwords)
     main_page.click('#login-button')
     return main_page
-
-@pytest.fixture
-def card_with_one_item(user_standart_login):
-    user_standart_login.click('.btn_inventory')
-    return user_standart_login
-
-@pytest.fixture
-def card_with_many_item(user_standart_login):
-    items = [
-    'sauce-labs-backpack',
-    'sauce-labs-bike-light', 
-    'sauce-labs-bolt-t-shirt',
-    'sauce-labs-fleece-jacket',
-    'sauce-labs-onesie',
-    'test.allthethings()-t-shirt-(red)'
-]
-    user_standart_login.click('.btn_inventory')
-    return user_standart_login
