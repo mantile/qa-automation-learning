@@ -16,11 +16,6 @@ class LoginPage(BasePage):
             self.LOGIN_BUTTON
         ]
 
-    def open(self):
-        self.navigate_to("https://www.saucedemo.com/")
-        self.wait_for_element(self.LOGIN_BUTTON)
-        return self
-    
     def fill_username(self, username: str):
         self.page.fill(self.USERNAME_INPUT, username)
         return self

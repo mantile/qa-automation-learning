@@ -4,18 +4,27 @@ from playwright.sync_api import Page
 
 class BasePage:
 
+    URL = "https://www.saucedemo.com/"
+
     def __init__(self, page: Page):
         self.page = Page
         self.logger = None
         self._expected_elements: list[str] = []
 
-    def navigate_to(self, url: str):
-        self.oage.goto(url)
+    def navigate_to(self, url: str = None):
+        if url is None:
+            url = self.URL
+        self.page.goto(url)
         return self
     
-    def wait_for_element(self, selector: str, timeout: int = 30000):
-        self.page.wait_for_selector(selector, timeout)
+    def open_page(self):
+        self.navigate_to()
+        self.wait_for_page_load_with_retry()
         return self
+    
+    #def wait_for_element(self, selector: str, timeout: int = 30000):
+    #    self.page.wait_for_selector(selector, timeout)
+    #    return self
 
     def get_text(self, selector: str) -> str:
         return self.page.locator(selector).text_content()

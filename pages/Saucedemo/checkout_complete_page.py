@@ -9,6 +9,8 @@ class CheckoutCompletePage(BasePage):
     COMPLETE_IMAGE = '.pony_express'
     BACK_HOME_BUTTON = '#back-to-products'
 
+    URL = "https://www.saucedemo.com/checkout-complete.html"
+
     def __init__(self, page: Page):
         super().__init__(page)
         self._expected_elements = [

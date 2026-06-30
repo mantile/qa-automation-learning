@@ -16,6 +16,8 @@ class CheckoutPage(BasePage):
     DEFAULT_LAST_NAME = "Doe"
     DEFAULT_POSTAL_CODE = "12345"
 
+    URL = "https://www.saucedemo.com/checkout-step-one.html"
+
     def __init__(self, page: Page):
         super().__init__(page)
         self._expected_elements = [

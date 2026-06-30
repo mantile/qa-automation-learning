@@ -1,6 +1,4 @@
 class TestDate:
-    
-    BASE_URL = "https://www.saucedemo.com/"
 
     USERS = {
         'standard' : {

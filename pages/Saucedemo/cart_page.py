@@ -9,6 +9,8 @@ class CardPage(BasePage):
     CHECKOUT_BUTTON = '#checkout'
     CONTINUE_SHOPPING_BUTTON = '#continue-shopping'
     REMOVE_BUTTON = '[data-test^="remove-"]'
+    
+    URL = "https://www.saucedemo.com/cart.html"
 
     def __init__(self, page: Page):
         super().__init__(page)

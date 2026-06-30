@@ -9,6 +9,8 @@ class InventoryPage(BasePage):
     CART_LINK = '.shopping_cart_link'
     ITEM_NAME = '.inventory_item_name'
     ITEM_PRICE = '.inventory_item_price'
+    
+    URL = "https://www.saucedemo.com/inventory.html"
 
     def __iadd__(self, page: Page):
         super().__init__(page)

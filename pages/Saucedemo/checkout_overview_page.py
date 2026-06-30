@@ -14,6 +14,8 @@ class CheckoutOverviewPage(BasePage):
     FINISH_BUTTON = '#finish'
     CANCEL_BUTTON = '#cancel'
 
+    URL = "https://www.saucedemo.com/checkout-step-two.html"
+
     def __init__(self, page: Page):
         super().__init__(page)
         self._expected_elements = [
