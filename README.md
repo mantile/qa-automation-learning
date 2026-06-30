@@ -79,8 +79,6 @@ Instead of hypothetical examples, this roadmap uses real, publicly available tes
 | Python Basics | ✅ | [Python Tutorial](https://docs.python.org/3/tutorial/) |
 | Git Basics | ✅ | [GitHub Learning Lab](https://lab.github.com/) |
 
-**Project:** 5 simple Python scripts (calculator, CSV parser, API client)
-
 ---
 
 ### 🎯 PHASE 2: First Automated Test (1–2 weeks)
@@ -92,7 +90,7 @@ Instead of hypothetical examples, this roadmap uses real, publicly available tes
 | Locators (CSS, XPath, Text) | ✅ | [Locators Guide](https://playwright.dev/docs/locators) |
 | First Test Script | ✅ | - |
 
-**Project:** GitHub login test (open page → click → verify URL)
+**Project:** Saucedemo login tests (open page → click → verify URL)
 
 ---
 
@@ -105,7 +103,7 @@ Instead of hypothetical examples, this roadmap uses real, publicly available tes
 | Page Object Model (POM) | 🔄 | [POM Guide](https://playwright.dev/docs/pom) |
 | API Testing (requests) | 🔄 | [Requests Library](https://requests.readthedocs.io/) |
 
-**Project:** E-commerce test framework with 10+ UI + API tests
+**Project:** Saucedemo E-commerce test framework with 10+ UI + API tests (fullrun from login to shopping finish)
 
 ---
 
