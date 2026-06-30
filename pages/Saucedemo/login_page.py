@@ -10,6 +10,11 @@ class LoginPage(BasePage):
 
     def __init__(self, page: Page):
         super().__init__(page)
+        self._expected_elements = [
+            self.USERNAME_INPUT,
+            self.PASSWORD_INPUT,
+            self.LOGIN_BUTTON
+        ]
 
     def open(self):
         self.navigate_to("https://www.saucedemo.com/")
@@ -28,4 +33,16 @@ class LoginPage(BasePage):
         self.page.click(self.LOGIN_BUTTON)
         return self
     
+    def login(self, username: str, password: str):
+        self.fill_username(username)
+        self.fill_password(password)
+        self.click_login_button()
+
+        if self.is_error_visible():
+            return self
+        return InventoryPage(self.page)
     
+    def is_login_page_loaded(self) -> bool:
+        return (self.is_element_visible(self.USERNAME_INPUT) and
+                self.is_element_visible(self.PASSWORD_INPUT) and
+                self.is_element_visible(self.LOGIN_BUTTON))

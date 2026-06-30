@@ -1,4 +1,5 @@
 class TestDate:
+    
     BASE_URL = "https://www.saucedemo.com/"
 
     USERS = {
@@ -62,10 +63,4 @@ class TestDate:
             'name': 'Test.allTheThings() T-Shirt (Red)',
             'price': '$15.99'
         }
-    }
-    
-    CHECKOUT_INFO = {
-        'first_name': 'John',
-        'last_name': 'Doe',
-        'postal_code': '12345'
     }
