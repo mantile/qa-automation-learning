@@ -7,7 +7,7 @@ class BasePage:
     URL = "https://www.saucedemo.com/"
 
     def __init__(self, page: Page):
-        self.page = Page
+        self.page = page
         self.logger = None
         self._expected_elements: list[str] = []
 

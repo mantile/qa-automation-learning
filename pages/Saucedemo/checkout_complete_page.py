@@ -1,6 +1,6 @@
 from playwright.sync_api import Page
 from pages.Saucedemo.base_page import BasePage
-from pages.Saucedemo.inventory_page import InventoryPage
+
 
 class CheckoutCompletePage(BasePage):
 
@@ -26,6 +26,13 @@ class CheckoutCompletePage(BasePage):
     def get_complete_text(self) -> str:
         return self.page.locator(self.COMPLETE_TEXT).text_content()
     
-    def click_back(self) -> InventoryPage:
+    def click_back(self) -> 'InventoryPage':
         self.page.click(self.BACK_HOME_BUTTON)
+        from pages.Saucedemo.inventory_page import InventoryPage
         return InventoryPage(self.page)
+    
+    def complite_page_is_loaded(self):
+        return (self.is_element_visible(self.COMPLETE_HEADER) and
+                self.is_element_visible(self.COMPLETE_TEXT) and
+                self.is_element_visible(self.COMPLETE_IMAGE) and
+                self.is_element_visible(self.BACK_HOME_BUTTON))

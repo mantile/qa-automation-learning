@@ -1,9 +1,7 @@
 from playwright.sync_api import Page
 from pages.Saucedemo.base_page import BasePage
-from pages.Saucedemo.checkout_page import CheckoutPage
-from pages.Saucedemo.inventory_page import InventoryPage
 
-class CardPage(BasePage):
+class CartPage(BasePage):
 
     CART_ITEMS = '.cart_item'
     CHECKOUT_BUTTON = '#checkout'
@@ -32,13 +30,20 @@ class CardPage(BasePage):
             remove_button.nth(i).click()
         return self
     
-    def go_to_checkout(self):
+    def go_to_checkout(self) -> 'CheckoutPage':
         self.page.locator(self.CHECKOUT_BUTTON).click()
+        from pages.Saucedemo.checkout_page import CheckoutPage
         return CheckoutPage(self.page)
     
     def continue_shopping(self):
         self.page.click(self.CONTINUE_SHOPPING_BUTTON)
+        from pages.Saucedemo.inventory_page import InventoryPage
         return InventoryPage(self.page)
     
     def is_card_is_empty(self) -> bool:
         return self.get_item_count() == 0
+    
+    def cart_page_is_loaded(self) -> bool:
+        return (self.is_element_visible(self.CHECKOUT_BUTTON) and
+                self.is_element_visible(self.CONTINUE_SHOPPING_BUTTON) and
+                self.is_element_visible(self.REMOVE_BUTTON))

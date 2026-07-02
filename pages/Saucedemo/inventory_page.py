@@ -1,6 +1,5 @@
 from playwright.sync_api import Page
 from pages.Saucedemo.base_page import BasePage
-from pages.Saucedemo.cart_page import CartPage
 
 class InventoryPage(BasePage):
 
@@ -37,8 +36,9 @@ class InventoryPage(BasePage):
             return int(self.page.locator(self.CART_BADGE).text_content())
         return 0
     
-    def go_to_card(self):
+    def go_to_cart(self):
         self.page.click(self.CART_LINK)
+        from pages.Saucedemo.cart_page import CartPage
         return CartPage(self.page)
     
     def is_inventory_visible(self) -> bool:

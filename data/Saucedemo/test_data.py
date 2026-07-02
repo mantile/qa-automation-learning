@@ -1,4 +1,4 @@
-class TestDate:
+class TestData:
 
     USERS = {
         'standard' : {
