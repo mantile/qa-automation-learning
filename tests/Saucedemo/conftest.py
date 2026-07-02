@@ -27,19 +27,19 @@ def standard_login(login_page) -> InventoryPage:
     return login_page.login(user, password)
 
 @pytest.fixture
-def add_backpack_to_card(standard_login):
+def add_backpack_to_cart(standard_login):
     item = TestData.ITEMS['backpack']['id']
     return standard_login.add_item_to_cart(item)
 
 @pytest.fixture
-def cart_with_backpack(add_backpack_to_card) -> CartPage:
-    return add_backpack_to_card.go_to_cart()
+def cart_with_backpack(add_backpack_to_cart) -> CartPage:
+    return add_backpack_to_cart.go_to_cart()
 
 @pytest.fixture
 def checkout_with_backpack(cart_with_backpack) -> CheckoutPage:
     return cart_with_backpack.go_to_checkout()
 
 @pytest.fixture
-def checkout_with_backpack_complite(checkout_with_backpack) -> CheckoutOverviewPage:
+def checkout_with_backpack_complete(checkout_with_backpack) -> CheckoutOverviewPage:
     checkout_with_backpack.fill_checkout_info()
     return checkout_with_backpack.click_continue()

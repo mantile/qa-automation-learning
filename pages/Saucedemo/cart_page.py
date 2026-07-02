@@ -40,7 +40,7 @@ class CartPage(BasePage):
         from pages.Saucedemo.inventory_page import InventoryPage
         return InventoryPage(self.page)
     
-    def is_card_is_empty(self) -> bool:
+    def is_cart_empty(self) -> bool:
         return self.get_item_count() == 0
     
     def cart_page_is_loaded(self) -> bool:

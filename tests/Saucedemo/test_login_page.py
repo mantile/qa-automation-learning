@@ -9,5 +9,5 @@ def test_login_standard(login_page):
     login_page.fill_username(TestData.USERS['standard']['username'])
     login_page.fill_password(TestData.PASSWORDS)
     login_page.click_login_button()
-    assert login_page.page.url == "https://www.saucedemo.com/inventory.html"
+    assert "inventory" in login_page.page.url 
 

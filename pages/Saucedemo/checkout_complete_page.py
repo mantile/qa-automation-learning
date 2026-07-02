@@ -31,7 +31,7 @@ class CheckoutCompletePage(BasePage):
         from pages.Saucedemo.inventory_page import InventoryPage
         return InventoryPage(self.page)
     
-    def complite_page_is_loaded(self):
+    def complete_page_is_loaded(self):
         return (self.is_element_visible(self.COMPLETE_HEADER) and
                 self.is_element_visible(self.COMPLETE_TEXT) and
                 self.is_element_visible(self.COMPLETE_IMAGE) and
