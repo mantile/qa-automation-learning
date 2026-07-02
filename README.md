@@ -99,8 +99,8 @@ Instead of hypothetical examples, this roadmap uses real, publicly available tes
 
 | Topic | Status | Resources |
 | :--- | :--- | :--- |
-| Pytest (fixtures, markers) | 🔄 | [Pytest Docs](https://docs.pytest.org/) |
-| Page Object Model (POM) | 🔄 | [POM Guide](https://playwright.dev/docs/pom) |
+| Pytest (fixtures, markers) | ✅ | [Pytest Docs](https://docs.pytest.org/) |
+| Page Object Model (POM) | ✅ | [POM Guide](https://playwright.dev/docs/pom) |
 | API Testing (requests) | 🔄 | [Requests Library](https://requests.readthedocs.io/) |
 
 **Project:** Saucedemo E-commerce test framework with 10+ UI + API tests (fullrun from login to shopping finish)
