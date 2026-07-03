@@ -65,6 +65,7 @@ Instead of hypothetical examples, this roadmap uses real, publicly available tes
 | **[Swag Labs](https://www.saucedemo.com)** | E-commerce platform (SauceDemo) | User authentication, product filtering/sorting, shopping cart, checkout process, and order validation |
 | **[DemoQA](https://demoqa.com/)** | A comprehensive UI elements demo | Forms, buttons, modals, drag-and-drop, date pickers, and other complex UI interactions |
 | **SQLite (Local)** | Embedded test database | Practicing SQL queries, data validation, and test data setup/teardown for database-backed applications |
+| [Swagger Petstore](https://petstore.swagger.io/) | RESTful API testing sandbox | CRUD operations for pets, users, and store orders; request/response validation; authentication; error handling; API contract testing |
 
 ---
 
