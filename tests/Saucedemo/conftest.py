@@ -1,6 +1,7 @@
 import pytest
 
 from playwright.sync_api import sync_playwright
+
 from data.Saucedemo.test_data import TestData
 from pages.Saucedemo.login_page import LoginPage
 from pages.Saucedemo.inventory_page import InventoryPage

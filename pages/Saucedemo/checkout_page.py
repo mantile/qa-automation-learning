@@ -48,17 +48,17 @@ class CheckoutPage(BasePage):
         self.fill_last_name(last_name or self.DEFAULT_LAST_NAME)
         self.fill_postal_code(postal_code or self.DEFAULT_POSTAL_CODE)
 
-    def click_continue(self) -> 'CheckoutOverviewPage':
+    def click_continue(self):
         self.page.click(self.CONTINUE_BUTTON)
         from pages.Saucedemo.checkout_overview_page import CheckoutOverviewPage
         return CheckoutOverviewPage(self.page)
     
-    def click_cancel(self) -> 'CartPage':
+    def click_cancel(self):
         self.page.click(self.CANCEL_BUTTON)
         from pages.Saucedemo.cart_page import CartPage
         return CartPage(self.page)
     
-    def continue_with_deafult_info(self) -> 'CheckoutOverviewPage':
+    def continue_with_deafult_info(self):
         self.fill_checkout_info()
         return self.click_continue()
     

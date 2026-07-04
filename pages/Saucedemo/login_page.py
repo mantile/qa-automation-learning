@@ -1,5 +1,8 @@
 from playwright.sync_api import Page
+
 from pages.Saucedemo.base_page import BasePage
+
+from pages.Saucedemo.inventory_page import InventoryPage
 
 class LoginPage(BasePage):
     USERNAME_INPUT = '#user-name'
@@ -25,7 +28,7 @@ class LoginPage(BasePage):
     
     def click_login_button(self):
         self.page.click(self.LOGIN_BUTTON)
-        return self
+        return InventoryPage(self.page)
     
     def login(self, username: str, password: str):
         self.fill_username(username)

@@ -30,7 +30,7 @@ class CartPage(BasePage):
             remove_button.nth(i).click()
         return self
     
-    def go_to_checkout(self) -> 'CheckoutPage':
+    def go_to_checkout(self):
         self.page.locator(self.CHECKOUT_BUTTON).click()
         from pages.Saucedemo.checkout_page import CheckoutPage
         return CheckoutPage(self.page)

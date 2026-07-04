@@ -6,7 +6,6 @@ class AuthEndpoints:
         self.client = APIClient()
     
     def get_token(self, username="admin", password="password123"):
-        """Получение токена для авторизации"""
         data = {
             "username": username,
             "password": password

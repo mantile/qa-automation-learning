@@ -45,12 +45,12 @@ class CheckoutOverviewPage(BasePage):
         text = self.page.locator(self.TOTAL).text_content()
         return float(text.replace('Total: $', ''))
     
-    def click_finish(self) -> 'CheckoutCompletePage':
+    def click_finish(self):
         self.page.click(self.FINISH_BUTTON)
         from pages.Saucedemo.checkout_complete_page import CheckoutCompletePage
         return CheckoutCompletePage(self.page)
     
-    def click_cancel(self) -> 'InventoryPage':
+    def click_cancel(self):
         self.page.click(self.CANCEL_BUTTON)
         from pages.Saucedemo.inventory_page import InventoryPage
         return InventoryPage(self.page)
@@ -61,3 +61,9 @@ class CheckoutOverviewPage(BasePage):
         total = self.get_total()
         expected_total = round(subtotal + tax, 2)
         return total == expected_total
+    
+    def is_checkout_overview_page_loaded(self) -> bool:
+        return (self.is_element_visible(self.CART_ITEMS) and
+                self.is_element_visible(self.ITEM_NAME) and
+                self.is_element_visible(self.FINISH_BUTTON) and
+                self.is_element_visible(self.CANCEL_BUTTON))

@@ -26,7 +26,7 @@ class CheckoutCompletePage(BasePage):
     def get_complete_text(self) -> str:
         return self.page.locator(self.COMPLETE_TEXT).text_content()
     
-    def click_back(self) -> 'InventoryPage':
+    def click_back(self):
         self.page.click(self.BACK_HOME_BUTTON)
         from pages.Saucedemo.inventory_page import InventoryPage
         return InventoryPage(self.page)
