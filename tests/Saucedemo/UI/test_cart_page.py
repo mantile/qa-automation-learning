@@ -3,12 +3,14 @@ import pytest
 from data.Saucedemo.test_data import TestData
 
 #TEST CASE 1: Check backpack in cart
+@pytest.mark.xdist_group(name="cart_page_group")
 @pytest.mark.saucedemo
 @pytest.mark.ui
 def test_check_backpack_in_cart(cart_with_backpack):
     assert cart_with_backpack.is_cart_empty() is False
 
 #TEST CASE 2: Remove backpack
+@pytest.mark.xdist_group(name="cart_page_group")
 @pytest.mark.saucedemo
 @pytest.mark.ui
 def test_remove_backpack_in_cart(cart_with_backpack):
@@ -16,6 +18,7 @@ def test_remove_backpack_in_cart(cart_with_backpack):
     assert cart_with_backpack.is_cart_empty() is True
 
 #TEST CASE 3: Checkout continue shopping
+@pytest.mark.xdist_group(name="cart_page_group")
 @pytest.mark.saucedemo
 @pytest.mark.ui
 def test_checkout_continue_shopping(cart_with_backpack):

@@ -103,7 +103,7 @@ jobs:
 
   report:
     needs:
-      - saucedemo-smoke-tests
+      - saucedemo-e2e-tests
       - saucedemo-ui-tests
       - restfulbooker-api-tests
     runs-on: ubuntu-22.04

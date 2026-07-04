@@ -3,6 +3,7 @@ import pytest
 from data.Saucedemo.test_data import TestData
 
 #TEST CASE 1: Empty Cart - ready to tests
+@pytest.mark.xdist_group(name="inventory_page_group")
 @pytest.mark.saucedemo
 @pytest.mark.ui
 def test_empty_cart(standard_login):
@@ -10,6 +11,7 @@ def test_empty_cart(standard_login):
     assert standard_login.get_cart_count() == 0
 
 #TEST CASE 2: Add Single Item to Cart
+@pytest.mark.xdist_group(name="inventory_page_group")
 @pytest.mark.saucedemo
 @pytest.mark.ui
 def test_add_backpack_to_cart(standard_login):
@@ -18,6 +20,7 @@ def test_add_backpack_to_cart(standard_login):
     assert standard_login.page.locator('.shopping_cart_badge').text_content() == '1'
 
 #TEST CASE 3: Go to Cart
+@pytest.mark.xdist_group(name="inventory_page_group")
 @pytest.mark.saucedemo
 @pytest.mark.ui
 def test_go_to_cart(add_backpack_to_cart):
