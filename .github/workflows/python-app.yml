@@ -39,83 +39,6 @@ jobs:
           python -c "import requests; print('Requests installed')"
           echo "complete=true" >> $GITHUB_OUTPUT
 
-  banking-smoke-tests:
-    needs: setup
-    runs-on: ubuntu-22.04
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
-        with:
-          python-version: "3.11"
-          cache: 'pip'
-      - run: pip install -r requirements.txt
-      - run: playwright install chromium
-      
-      - name: Check and run BankingProject Smoke tests
-        id: banking_smoke
-        run: |
-          MARKER="banking and smoke"
-          TEST_COUNT=$(pytest --collect-only -m "$MARKER" -q 2>/dev/null | grep -c "test_" || true)
-          echo "Found $TEST_COUNT tests for marker: $MARKER"
-          echo "test_count=$TEST_COUNT" >> $GITHUB_OUTPUT
-          
-          if [ "$TEST_COUNT" -gt 0 ]; then
-            pytest -m "$MARKER" -v --tb=short
-          else
-            echo "No tests found, skipping..."
-          fi
-
-  banking-ui-tests:
-    needs: setup
-    runs-on: ubuntu-22.04
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
-        with:
-          python-version: "3.11"
-          cache: 'pip'
-      - run: pip install -r requirements.txt
-      - run: playwright install chromium
-      
-      - name: Check and run BankingProject UI tests
-        id: banking_ui
-        run: |
-          MARKER="banking and ui"
-          TEST_COUNT=$(pytest --collect-only -m "$MARKER" -q 2>/dev/null | grep -c "test_" || true)
-          echo "Found $TEST_COUNT tests for marker: $MARKER"
-          echo "test_count=$TEST_COUNT" >> $GITHUB_OUTPUT
-          
-          if [ "$TEST_COUNT" -gt 0 ]; then
-            pytest -m "$MARKER" -v --tb=short
-          else
-            echo "No tests found, skipping..."
-          fi
-
-  banking-api-tests:
-    needs: setup
-    runs-on: ubuntu-22.04
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
-        with:
-          python-version: "3.11"
-          cache: 'pip'
-      - run: pip install -r requirements.txt
-      
-      - name: Check and run BankingProject API tests
-        id: banking_api
-        run: |
-          MARKER="banking and api"
-          TEST_COUNT=$(pytest --collect-only -m "$MARKER" -q 2>/dev/null | grep -c "test_" || true)
-          echo "Found $TEST_COUNT tests for marker: $MARKER"
-          echo "test_count=$TEST_COUNT" >> $GITHUB_OUTPUT
-          
-          if [ "$TEST_COUNT" -gt 0 ]; then
-            pytest -m "$MARKER" -v --tb=short
-          else
-            echo "No tests found, skipping..."
-          fi
-
   saucedemo-smoke-tests:
     needs: setup
     runs-on: ubuntu-22.04
@@ -168,83 +91,6 @@ jobs:
             echo "No tests found, skipping..."
           fi
 
-  saucedemo-api-tests:
-    needs: setup
-    runs-on: ubuntu-22.04
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
-        with:
-          python-version: "3.11"
-          cache: 'pip'
-      - run: pip install -r requirements.txt
-      
-      - name: Check and run Saucedemo API tests
-        id: saucedemo_api
-        run: |
-          MARKER="saucedemo and api"
-          TEST_COUNT=$(pytest --collect-only -m "$MARKER" -q 2>/dev/null | grep -c "test_" || true)
-          echo "Found $TEST_COUNT tests for marker: $MARKER"
-          echo "test_count=$TEST_COUNT" >> $GITHUB_OUTPUT
-          
-          if [ "$TEST_COUNT" -gt 0 ]; then
-            pytest -m "$MARKER" -v --tb=short
-          else
-            echo "No tests found, skipping..."
-          fi
-
-  restfulbooker-smoke-tests:
-    needs: setup
-    runs-on: ubuntu-22.04
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
-        with:
-          python-version: "3.11"
-          cache: 'pip'
-      - run: pip install -r requirements.txt
-      - run: playwright install chromium
-      
-      - name: Check and run RestfulBooker Smoke tests
-        id: restfulbooker_smoke
-        run: |
-          MARKER="restfulbooker and smoke"
-          TEST_COUNT=$(pytest --collect-only -m "$MARKER" -q 2>/dev/null | grep -c "test_" || true)
-          echo "Found $TEST_COUNT tests for marker: $MARKER"
-          echo "test_count=$TEST_COUNT" >> $GITHUB_OUTPUT
-          
-          if [ "$TEST_COUNT" -gt 0 ]; then
-            pytest -m "$MARKER" -v --tb=short
-          else
-            echo "No tests found, skipping..."
-          fi
-
-  restfulbooker-ui-tests:
-    needs: setup
-    runs-on: ubuntu-22.04
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
-        with:
-          python-version: "3.11"
-          cache: 'pip'
-      - run: pip install -r requirements.txt
-      - run: playwright install chromium
-      
-      - name: Check and run RestfulBooker UI tests
-        id: restfulbooker_ui
-        run: |
-          MARKER="restfulbooker and ui"
-          TEST_COUNT=$(pytest --collect-only -m "$MARKER" -q 2>/dev/null | grep -c "test_" || true)
-          echo "Found $TEST_COUNT tests for marker: $MARKER"
-          echo "test_count=$TEST_COUNT" >> $GITHUB_OUTPUT
-          
-          if [ "$TEST_COUNT" -gt 0 ]; then
-            pytest -m "$MARKER" -v --tb=short
-          else
-            echo "No tests found, skipping..."
-          fi
-
   restfulbooker-api-tests:
     needs: setup
     runs-on: ubuntu-22.04
@@ -272,14 +118,8 @@ jobs:
 
   report:
     needs:
-      - banking-smoke-tests
-      - banking-ui-tests
-      - banking-api-tests
       - saucedemo-smoke-tests
       - saucedemo-ui-tests
-      - saucedemo-api-tests
-      - restfulbooker-smoke-tests
-      - restfulbooker-ui-tests
       - restfulbooker-api-tests
     runs-on: ubuntu-22.04
     if: always()

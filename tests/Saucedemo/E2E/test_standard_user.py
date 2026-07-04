@@ -2,7 +2,7 @@ import pytest
 
 from data.Saucedemo.test_data import TestData
 
-@pytest.main.saucedemo
+@pytest.mark.saucedemo
 @pytest.mark.e2e
 def test_e2e_standard_user_positive_order_flow(login_page):
     username = TestData.USERS['standard']['username']
