@@ -1,4 +1,4 @@
-name: Tests Pipeline
+name: Python application
 
 on:
   push:
@@ -37,115 +37,154 @@ jobs:
         run: |
           python -c "import playwright; print('Playwright installed')"
           python -c "import requests; print('Requests installed')"
-          python -c "import pytest; print('Pytest installed')"
           echo "complete=true" >> $GITHUB_OUTPUT
 
-  smoke-tests:
+  # ---------- BankingProject ----------
+  banking-smoke-tests:
     needs: setup
     runs-on: ubuntu-22.04
-    if: always()
-    
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Set up Python
-        uses: actions/setup-python@v5
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
         with:
           python-version: "3.11"
           cache: 'pip'
-
-      - name: Install dependencies
+      - run: pip install -r requirements.txt
+      - run: playwright install chromium
+      - name: Run BankingProject Smoke tests
         run: |
-          pip install -r requirements.txt
-          playwright install chromium
+          pytest tests/BankingProject/smoke/ -v --tb=short
 
-      - name: Run Smoke tests
-        run: |
-          pytest -m "smoke" -v --tb=short
-
-  api-tests:
+  banking-ui-tests:
     needs: setup
     runs-on: ubuntu-22.04
-    
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Set up Python
-        uses: actions/setup-python@v5
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
         with:
           python-version: "3.11"
           cache: 'pip'
-
-      - name: Install dependencies
+      - run: pip install -r requirements.txt
+      - run: playwright install chromium
+      - name: Run BankingProject UI tests
         run: |
-          pip install -r requirements.txt
+          pytest tests/BankingProject/ui/ -v --tb=short
 
-      - name: Run API tests
-        run: |
-          pytest tests/api/ -v --tb=short
-
-  e2e-tests:
+  banking-api-tests:
     needs: setup
     runs-on: ubuntu-22.04
-    
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Set up Python
-        uses: actions/setup-python@v5
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
         with:
           python-version: "3.11"
           cache: 'pip'
-
-      - name: Install dependencies
+      - run: pip install -r requirements.txt
+      - name: Run BankingProject API tests
         run: |
-          pip install -r requirements.txt
-          playwright install chromium
+          pytest tests/BankingProject/api/ -v --tb=short
 
-      - name: Run E2E tests
-        run: |
-          pytest -m "not api" -v --tb=short
-
-  smart-tests:
+  # ---------- Saucedemo ----------
+  saucedemo-smoke-tests:
     needs: setup
     runs-on: ubuntu-22.04
-    strategy:
-      fail-fast: false
-      matrix:
-        test-group:
-          - marker: "smoke"
-            name: "Smoke"
-          - marker: "regression"
-            name: "Regression"
-          - marker: "api"
-            name: "API"
-          - marker: "ui"
-            name: "UI"
-    
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Set up Python
-        uses: actions/setup-python@v5
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
         with:
           python-version: "3.11"
           cache: 'pip'
-
-      - name: Install dependencies
+      - run: pip install -r requirements.txt
+      - run: playwright install chromium
+      - name: Run Saucedemo Smoke tests
         run: |
-          pip install -r requirements.txt
-          playwright install chromium
+          pytest tests/Saucedemo/smoke/ -v --tb=short
 
-      - name: Run ${{ matrix.test-group.name }} tests
+  saucedemo-ui-tests:
+    needs: setup
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: 'pip'
+      - run: pip install -r requirements.txt
+      - run: playwright install chromium
+      - name: Run Saucedemo UI tests
         run: |
-          pytest -m "${{ matrix.test-group.marker }}" -v --tb=short
+          pytest tests/Saucedemo/ui/ -v --tb=short
+
+  saucedemo-api-tests:
+    needs: setup
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: 'pip'
+      - run: pip install -r requirements.txt
+      - name: Run Saucedemo API tests
+        run: |
+          pytest tests/Saucedemo/api/ -v --tb=short
+
+  # ---------- RestfulBooker ----------
+  restfulbooker-smoke-tests:
+    needs: setup
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: 'pip'
+      - run: pip install -r requirements.txt
+      - run: playwright install chromium
+      - name: Run RestfulBooker Smoke tests
+        run: |
+          pytest tests/RestfulBooker/smoke/ -v --tb=short
+
+  restfulbooker-ui-tests:
+    needs: setup
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: 'pip'
+      - run: pip install -r requirements.txt
+      - run: playwright install chromium
+      - name: Run RestfulBooker UI tests
+        run: |
+          pytest tests/RestfulBooker/ui/ -v --tb=short
+
+  restfulbooker-api-tests:
+    needs: setup
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: 'pip'
+      - run: pip install -r requirements.txt
+      - name: Run RestfulBooker API tests
+        run: |
+          pytest tests/RestfulBooker/api/ -v --tb=short
 
   report:
-    needs: [smoke-tests, api-tests, e2e-tests, smart-tests]
+    needs:
+      - banking-smoke-tests
+      - banking-ui-tests
+      - banking-api-tests
+      - saucedemo-smoke-tests
+      - saucedemo-ui-tests
+      - saucedemo-api-tests
+      - restfulbooker-smoke-tests
+      - restfulbooker-ui-tests
+      - restfulbooker-api-tests
     runs-on: ubuntu-22.04
     if: always()
     
