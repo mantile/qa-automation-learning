@@ -39,7 +39,7 @@ jobs:
           python -c "import requests; print('Requests installed')"
           echo "complete=true" >> $GITHUB_OUTPUT
 
-  saucedemo-smoke-tests:
+  saucedemo-e2e-tests:
     needs: setup
     runs-on: ubuntu-22.04
     steps:
