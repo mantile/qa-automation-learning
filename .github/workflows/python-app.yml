@@ -58,12 +58,7 @@ jobs:
           TEST_COUNT=$(pytest --collect-only -m "$MARKER" -q 2>/dev/null | grep -c "test_" || true)
           echo "Found $TEST_COUNT tests for marker: $MARKER"
           echo "test_count=$TEST_COUNT" >> $GITHUB_OUTPUT
-          
-          if [ "$TEST_COUNT" -gt 0 ]; then
-            pytest -m "$MARKER" -v --tb=short
-          else
-            echo "No tests found, skipping..."
-          fi
+          pytest -m "$MARKER" -v --tb=short
 
   saucedemo-ui-tests:
     needs: setup
@@ -84,12 +79,7 @@ jobs:
           TEST_COUNT=$(pytest --collect-only -m "$MARKER" -q 2>/dev/null | grep -c "test_" || true)
           echo "Found $TEST_COUNT tests for marker: $MARKER"
           echo "test_count=$TEST_COUNT" >> $GITHUB_OUTPUT
-          
-          if [ "$TEST_COUNT" -gt 0 ]; then
-            pytest -m "$MARKER" -v --tb=short
-          else
-            echo "No tests found, skipping..."
-          fi
+          pytest -m "$MARKER" -n 4 -v --tb=short
 
   restfulbooker-api-tests:
     needs: setup
@@ -109,12 +99,7 @@ jobs:
           TEST_COUNT=$(pytest --collect-only -m "$MARKER" -q 2>/dev/null | grep -c "test_" || true)
           echo "Found $TEST_COUNT tests for marker: $MARKER"
           echo "test_count=$TEST_COUNT" >> $GITHUB_OUTPUT
-          
-          if [ "$TEST_COUNT" -gt 0 ]; then
-            pytest -m "$MARKER" -v --tb=short
-          else
-            echo "No tests found, skipping..."
-          fi
+          pytest -m "$MARKER" -n 2 -v --tb=short
 
   report:
     needs:
