@@ -51,10 +51,10 @@ jobs:
       - run: pip install -r requirements.txt
       - run: playwright install chromium
       
-      - name: Check and run Saucedemo Smoke tests
+      - name: Check and run Saucedemo e2e tests
         id: saucedemo_smoke
         run: |
-          MARKER="saucedemo and smoke"
+          MARKER="saucedemo and e2e"
           TEST_COUNT=$(pytest --collect-only -m "$MARKER" -q 2>/dev/null | grep -c "test_" || true)
           echo "Found $TEST_COUNT tests for marker: $MARKER"
           echo "test_count=$TEST_COUNT" >> $GITHUB_OUTPUT
