@@ -58,7 +58,7 @@ jobs:
           TEST_COUNT=$(pytest --collect-only -m "$MARKER" -q 2>/dev/null | grep -c "test_" || true)
           echo "Found $TEST_COUNT tests for marker: $MARKER"
           echo "test_count=$TEST_COUNT" >> $GITHUB_OUTPUT
-          pytest -m "$MARKER" -v --tb=short
+          pytest -m "$MARKER" -v --tb=short --alluredir=allure-results
 
   saucedemo-ui-tests:
     needs: setup
@@ -79,7 +79,7 @@ jobs:
           TEST_COUNT=$(pytest --collect-only -m "$MARKER" -q 2>/dev/null | grep -c "test_" || true)
           echo "Found $TEST_COUNT tests for marker: $MARKER"
           echo "test_count=$TEST_COUNT" >> $GITHUB_OUTPUT
-          pytest -m "$MARKER" -n 4 -v --tb=short
+          pytest -m "$MARKER" -n 4 -v --tb=short --alluredir=allure-results
 
   restfulbooker-api-tests:
     needs: setup
@@ -99,18 +99,17 @@ jobs:
           TEST_COUNT=$(pytest --collect-only -m "$MARKER" -q 2>/dev/null | grep -c "test_" || true)
           echo "Found $TEST_COUNT tests for marker: $MARKER"
           echo "test_count=$TEST_COUNT" >> $GITHUB_OUTPUT
-          pytest -m "$MARKER" -n 2 -v --tb=short
+          pytest -m "$MARKER" -n 2 -v --tb=short --alluredir=allure-results
 
-  report:
-    needs:
-      - saucedemo-e2e-tests
-      - saucedemo-ui-tests
-      - restfulbooker-api-tests
-    runs-on: ubuntu-22.04
-    if: always()
-    
-    steps:
-      - name: Check all tests passed
+      - name: Generate Allure report
+        if: always()
         run: |
-          echo "All test groups completed!"
-          echo "Check the Actions tab for detailed results"
+          npm install -g allure-commandline
+          allure generate allure-results -o allure-report --clean
+
+      - name: Upload Allure report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: allure-report
+          path: allure-report
