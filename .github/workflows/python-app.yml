@@ -29,9 +29,8 @@ jobs:
         pip install -r requirements.txt
 
     - name: Install Playwright and browsers
-      uses: playwright-community/playwright-github-action@v1
-      with:
-        browser: 'chromium'
+      run: |
+        playwright install --with-deps chromium
 
     - name: Run tests
       run: |
