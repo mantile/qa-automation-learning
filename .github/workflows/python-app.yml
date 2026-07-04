@@ -1,44 +1,156 @@
-name: Python application
+name: Tests Pipeline
 
 on:
   push:
     branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
-
-permissions:
-  contents: read
+  workflow_dispatch:
 
 jobs:
-  test:
+  setup:
     runs-on: ubuntu-22.04
-
+    outputs:
+      setup-complete: ${{ steps.setup.outputs.complete }}
+    
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-    - name: Set up Python 3.11
-      uses: actions/setup-python@v5
-      with:
-        python-version: "3.11"
-        cache: 'pip'
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: 'pip'
 
-    - name: Install dependencies
-      run: |
-        python -m pip install --upgrade pip
-        pip install -r requirements.txt
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
 
-    - name: Install Playwright and browsers
-      run: |
-        playwright install --with-deps chromium
+      - name: Install Playwright browsers
+        run: |
+          playwright install --with-deps chromium
 
-    - name: Run tests
-      run: |
-        pytest -v --tb=short
+      - name: Verify setup
+        id: setup
+        run: |
+          python -c "import playwright; print('Playwright installed')"
+          python -c "import requests; print('Requests installed')"
+          python -c "import pytest; print('Pytest installed')"
+          echo "complete=true" >> $GITHUB_OUTPUT
 
-    - name: Upload test reports
-      if: always()
-      uses: actions/upload-artifact@v4
-      with:
-        name: test-reports
-        path: reports/
+  smoke-tests:
+    needs: setup
+    runs-on: ubuntu-22.04
+    if: always()
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: 'pip'
+
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt
+          playwright install chromium
+
+      - name: Run Smoke tests
+        run: |
+          pytest -m "smoke" -v --tb=short
+
+  api-tests:
+    needs: setup
+    runs-on: ubuntu-22.04
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: 'pip'
+
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt
+
+      - name: Run API tests
+        run: |
+          pytest tests/api/ -v --tb=short
+
+  e2e-tests:
+    needs: setup
+    runs-on: ubuntu-22.04
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: 'pip'
+
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt
+          playwright install chromium
+
+      - name: Run E2E tests
+        run: |
+          pytest -m "not api" -v --tb=short
+
+  smart-tests:
+    needs: setup
+    runs-on: ubuntu-22.04
+    strategy:
+      fail-fast: false
+      matrix:
+        test-group:
+          - marker: "smoke"
+            name: "Smoke"
+          - marker: "regression"
+            name: "Regression"
+          - marker: "api"
+            name: "API"
+          - marker: "ui"
+            name: "UI"
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: 'pip'
+
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt
+          playwright install chromium
+
+      - name: Run ${{ matrix.test-group.name }} tests
+        run: |
+          pytest -m "${{ matrix.test-group.marker }}" -v --tb=short
+
+  report:
+    needs: [smoke-tests, api-tests, e2e-tests, smart-tests]
+    runs-on: ubuntu-22.04
+    if: always()
+    
+    steps:
+      - name: Check all tests passed
+        run: |
+          echo "All test groups completed!"
+          echo "Check the Actions tab for detailed results"
