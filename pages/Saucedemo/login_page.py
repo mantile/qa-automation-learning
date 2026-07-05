@@ -44,3 +44,4 @@ class LoginPage(BasePage):
         return (self.is_element_visible(self.USERNAME_INPUT) and
                 self.is_element_visible(self.PASSWORD_INPUT) and
                 self.is_element_visible(self.LOGIN_BUTTON))
+    
