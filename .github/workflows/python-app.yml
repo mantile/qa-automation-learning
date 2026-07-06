@@ -138,6 +138,8 @@ jobs:
         with:
           name: allure-results
           path: allure-results
+          pattern: allure-results-*
+          merge-multiple: true
 
       - name: Generate Allure report
         run: |
@@ -147,5 +149,5 @@ jobs:
       - name: Upload Allure report
         uses: actions/upload-artifact@v4
         with:
-          name: allure-report-*
+          name: allure-report
           path: allure-report
