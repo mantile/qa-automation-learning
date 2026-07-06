@@ -1,7 +1,7 @@
 import pytest
 from api.endpoints.auth import AuthEndpoints
 from api.endpoints.booking import BookingEndpoints
-from data.api.test_data import get_booking_data
+from data.api.api_test_data import get_booking_data
 
 @pytest.fixture
 def auth_endpoints():

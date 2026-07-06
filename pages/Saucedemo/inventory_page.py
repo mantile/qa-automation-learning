@@ -49,3 +49,7 @@ class InventoryPage(BasePage):
     
     def get_item_price(self, index: int = 0) -> str:
         return self.page.locator(self.ITEM_PRICE).nth(index).text_content()
+    
+    # def get_all_datatest_items(self, datatest_name: str):
+    #     return self.page.locator(f'[data-test="{datatest_name}"]').all()
+    

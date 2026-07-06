@@ -1,0 +1,27 @@
+name: "QA Automation Report"
+output: "./allure-report"
+historyPath: "./history.jsonl"
+appendHistory: true
+historyLimit: 20
+
+qualityGate:
+  rules:
+    - maxFailures: 5
+
+plugins:
+  awesome:
+    options:
+      reportName: "QA Report"
+      singleFile: false
+      reportLanguage: "en"
+  dashboard:
+    options:
+      singleFile: false
+      reportName: "Dashboard"
+      reportLanguage: "en"
+  log:
+    options:
+      groupBy: none
+
+variables:
+  env_variable: "unknown"

@@ -21,10 +21,6 @@ class BasePage:
         self.navigate_to()
         self.wait_for_page_load_with_retry()
         return self
-    
-    #def wait_for_element(self, selector: str, timeout: int = 30000):
-    #    self.page.wait_for_selector(selector, timeout)
-    #    return self
 
     def get_text(self, selector: str) -> str:
         return self.page.locator(selector).text_content()

@@ -1,5 +1,5 @@
 import pytest
-from data.api.test_data import get_updated_booking_data
+from data.api.api_test_data import get_updated_booking_data
 
 class TestBooking:
     

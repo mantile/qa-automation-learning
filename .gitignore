@@ -247,3 +247,23 @@ results.xml
 # IDE
 .vscode/
 .idea/
+
+# Allure reports
+allure-report/
+allure-results/
+history.jsonl
+test-history/
+
+# Reports
+reports/
+
+# Test outputs
+*.log
+*.pid
+
+# Screenshots
+screenshots/
+
+# Generated files
+*.tmp
+*.temp
