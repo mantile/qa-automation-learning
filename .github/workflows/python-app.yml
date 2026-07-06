@@ -100,15 +100,30 @@ jobs:
           echo "Found $TEST_COUNT tests for marker: $MARKER"
           echo "test_count=$TEST_COUNT" >> $GITHUB_OUTPUT
           pytest -m "$MARKER" -n 2 -v --tb=short --alluredir=allure-results
+  
+  allure-report:
+    needs:
+      - saucedemo-e2e-tests
+      - saucedemo-ui-tests
+      - restfulbooker-api-tests
+    runs-on: ubuntu-22.04
+    if: always()
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Download all allure results
+        uses: actions/download-artifact@v4
+        with:
+          name: allure-results
+          path: allure-results
 
       - name: Generate Allure report
-        if: always()
         run: |
           npm install -g allure-commandline
           allure generate allure-results -o allure-report --clean
 
       - name: Upload Allure report
-        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: allure-report
