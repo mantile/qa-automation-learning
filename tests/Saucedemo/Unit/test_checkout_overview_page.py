@@ -11,6 +11,7 @@ def test_cancel_checkout_overview(checkout_with_backpack_complete):
 #TEST CASE 2: Finish
 @pytest.mark.saucedemo
 @pytest.mark.ui
+@pytest.mark.filterwarnings("error")
 def test_complete_checkout(checkout_with_backpack_complete):
     complete_page = checkout_with_backpack_complete.click_finish()
     assert "checkout-complete" in complete_page.page.url

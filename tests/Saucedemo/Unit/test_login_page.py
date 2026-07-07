@@ -75,7 +75,7 @@ class TestUsersLogin:
     #             attachment_type=allure.attachment_type.PNG
     #         )       
 
-    @allure.title("TC-5: problem_user login")
+    @allure.title("TC-3: problem_user login")
     @allure.description("locked login")
     @allure.tag("ui", "login", "problem_user")    
     def test_login_problem_user(self, login_page: LoginPage): 
@@ -92,4 +92,71 @@ class TestUsersLogin:
                 inventory_page.page.screenshot(),
                 name="successful_login",
                 attachment_type=allure.attachment_type.PNG
-            )       
+            )
+        
+    @allure.title("TC-4: login only with password")
+    @allure.description("login without filled username")
+    @allure.tag("ui", "login")
+    def test_login_with_password(self, login_page: LoginPage):
+        with allure.step("Fill password"):
+            login_page.fill_password(TestData.PASSWORDS)
+
+        with allure.step("Press login"):
+            login_page.click_login_button()
+
+        with allure.step("Check error"):
+            assert login_page.get_error_message() == "Epic sadface: Username is required"
+            allure.attach(
+                login_page.page.screenshot(),
+                name="successful_login",
+                attachment_type=allure.attachment_type.PNG
+            )
+
+    @allure.title("TC-5: login only with username")
+    @allure.description("login without filled password")
+    @allure.tag("ui", "login")
+    def test_login_with_username(self, login_page: LoginPage):
+        with allure.step("Fill username"):
+            login_page.fill_username(TestData.USERS['problem']['username'])
+
+        with allure.step("Press login"):
+            login_page.click_login_button()
+
+        with allure.step("Check error"):
+            assert login_page.get_error_message() == "Epic sadface: Password is required"
+            allure.attach(
+                login_page.page.screenshot(),
+                name="successful_login",
+                attachment_type=allure.attachment_type.PNG
+            )
+
+    @allure.title("TC-6: login without fills")
+    @allure.description("login without any fills")
+    @allure.tag("ui", "login")
+    def test_login_without_fills(self, login_page: LoginPage):
+        with allure.step("Press login"):
+            login_page.click_login_button()
+
+        with allure.step("Check error"):
+            assert login_page.is_error_visible() is True
+            allure.attach(
+                login_page.page.screenshot(),
+                name="successful_login",
+                attachment_type=allure.attachment_type.PNG
+            )
+
+    @allure.title("TC-7: close the error message")
+    @allure.description("chek the close of error message")
+    @allure.tag("ui", "login")
+    def test_login_error_closing(self, login_page: LoginPage):
+        with allure.step("Press login"):
+            login_page.click_login_button()
+
+        with allure.step("Check error"):
+            assert login_page.is_error_visible() is True
+            login_page.page.locator('.error-button').click()
+            allure.attach(
+                login_page.page.screenshot(),
+                name="successful_login",
+                attachment_type=allure.attachment_type.PNG
+            )
