@@ -1,5 +1,5 @@
 from playwright.sync_api import Page
-from pages.Saucedemo.base_page import BasePage
+from Saucedemo.pages.base_page import BasePage
 
 class CheckoutPage(BasePage):
 
@@ -50,12 +50,12 @@ class CheckoutPage(BasePage):
 
     def click_continue(self):
         self.page.click(self.CONTINUE_BUTTON)
-        from pages.Saucedemo.checkout_overview_page import CheckoutOverviewPage
+        from Saucedemo.pages.checkout_overview_page import CheckoutOverviewPage
         return CheckoutOverviewPage(self.page)
     
     def click_cancel(self):
         self.page.click(self.CANCEL_BUTTON)
-        from pages.Saucedemo.cart_page import CartPage
+        from Saucedemo.pages.cart_page import CartPage
         return CartPage(self.page)
     
     def continue_with_deafult_info(self):

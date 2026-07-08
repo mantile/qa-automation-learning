@@ -1,5 +1,5 @@
 from playwright.sync_api import Page
-from pages.Saucedemo.base_page import BasePage
+from Saucedemo.pages.base_page import BasePage
 
 class CartPage(BasePage):
 
@@ -32,12 +32,12 @@ class CartPage(BasePage):
     
     def go_to_checkout(self):
         self.page.locator(self.CHECKOUT_BUTTON).click()
-        from pages.Saucedemo.checkout_page import CheckoutPage
+        from Saucedemo.pages.checkout_page import CheckoutPage
         return CheckoutPage(self.page)
     
     def continue_shopping(self):
         self.page.click(self.CONTINUE_SHOPPING_BUTTON)
-        from pages.Saucedemo.inventory_page import InventoryPage
+        from Saucedemo.pages.inventory_page import InventoryPage
         return InventoryPage(self.page)
     
     def is_cart_empty(self) -> bool:

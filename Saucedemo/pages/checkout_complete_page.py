@@ -1,5 +1,5 @@
 from playwright.sync_api import Page
-from pages.Saucedemo.base_page import BasePage
+from Saucedemo.pages.base_page import BasePage
 
 
 class CheckoutCompletePage(BasePage):
@@ -28,7 +28,7 @@ class CheckoutCompletePage(BasePage):
     
     def click_back(self):
         self.page.click(self.BACK_HOME_BUTTON)
-        from pages.Saucedemo.inventory_page import InventoryPage
+        from Saucedemo.pages.inventory_page import InventoryPage
         return InventoryPage(self.page)
     
     def complete_page_is_loaded(self):

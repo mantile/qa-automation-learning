@@ -1,6 +1,6 @@
 import pytest
 
-from data.Saucedemo.test_data import TestData
+from Saucedemo.data.test_data import TestData
 
 @pytest.mark.saucedemo
 @pytest.mark.e2e

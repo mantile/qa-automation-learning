@@ -71,3 +71,6 @@ class BasePage:
             f"Page dont load for {timeout} ms. "
             f"Last error: {last_error}"
         )
+    
+    def get_by_datatest(self, selector: str):
+        return self.page.locator(f'[data-test="{selector}"]')

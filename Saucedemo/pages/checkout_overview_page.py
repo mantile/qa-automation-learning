@@ -1,5 +1,5 @@
 from playwright.sync_api import Page
-from pages.Saucedemo.base_page import BasePage
+from Saucedemo.pages.base_page import BasePage
 
 
 class CheckoutOverviewPage(BasePage):
@@ -47,12 +47,12 @@ class CheckoutOverviewPage(BasePage):
     
     def click_finish(self):
         self.page.click(self.FINISH_BUTTON)
-        from pages.Saucedemo.checkout_complete_page import CheckoutCompletePage
+        from Saucedemo.pages.checkout_complete_page import CheckoutCompletePage
         return CheckoutCompletePage(self.page)
     
     def click_cancel(self):
         self.page.click(self.CANCEL_BUTTON)
-        from pages.Saucedemo.inventory_page import InventoryPage
+        from Saucedemo.pages.inventory_page import InventoryPage
         return InventoryPage(self.page)
     
     def verify_total_calc(self) -> bool:

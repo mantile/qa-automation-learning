@@ -2,9 +2,9 @@ import pytest
 import allure
 import time
 
-from data.Saucedemo.test_data import TestData
+from Saucedemo.data.test_data import TestData
 
-from pages.Saucedemo.login_page import LoginPage
+from Saucedemo.pages.login_page import LoginPage
 
 @allure.epic("Saucedemo Performance")
 @allure.feature("Authorization")

@@ -2,9 +2,8 @@ import pytest
 import allure
 import hashlib
 
-from data.Saucedemo.test_data import TestData
-
-from pages.Saucedemo.login_page import LoginPage
+from Saucedemo.data.test_data import TestData
+from Saucedemo.pages.login_page import LoginPage
 
 @allure.epic("Saucedemo UI")
 @allure.feature("Authorization")

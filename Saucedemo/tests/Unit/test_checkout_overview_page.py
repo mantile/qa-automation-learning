@@ -15,4 +15,5 @@ def test_cancel_checkout_overview(checkout_with_backpack_complete):
 def test_complete_checkout(checkout_with_backpack_complete):
     complete_page = checkout_with_backpack_complete.click_finish()
     assert "checkout-complete" in complete_page.page.url
+    complete_page.page.wait_for_load_state("networkidle")
     assert complete_page.complete_page_is_loaded() is True

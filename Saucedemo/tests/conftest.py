@@ -1,13 +1,14 @@
 import pytest
 
 from playwright.sync_api import sync_playwright
+from playwright.sync_api import Page
 
-from data.Saucedemo.test_data import TestData
-from pages.Saucedemo.login_page import LoginPage
-from pages.Saucedemo.inventory_page import InventoryPage
-from pages.Saucedemo.cart_page import CartPage
-from pages.Saucedemo.checkout_page import CheckoutPage
-from pages.Saucedemo.checkout_overview_page import CheckoutOverviewPage
+from Saucedemo.data.test_data import TestData
+from Saucedemo.pages.login_page import LoginPage
+from Saucedemo.pages.inventory_page import InventoryPage
+from Saucedemo.pages.cart_page import CartPage
+from Saucedemo.pages.checkout_page import CheckoutPage
+from Saucedemo.pages.checkout_overview_page import CheckoutOverviewPage
 
 @pytest.fixture
 def browser_page():

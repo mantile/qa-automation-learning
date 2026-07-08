@@ -1,6 +1,6 @@
 import pytest
 
-from data.Saucedemo.test_data import TestData
+from Saucedemo.data.test_data import TestData
 
 #TEST CASE 1: Check backpack in cart
 @pytest.mark.xdist_group(name="cart_page_group")

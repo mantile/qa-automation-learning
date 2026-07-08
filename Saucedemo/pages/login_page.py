@@ -1,8 +1,9 @@
 from playwright.sync_api import Page
 
-from pages.Saucedemo.base_page import BasePage
+from Saucedemo.pages.base_page import BasePage
+from Saucedemo.pages.inventory_page import InventoryPage
 
-from pages.Saucedemo.inventory_page import InventoryPage
+from Saucedemo.data.test_data import TestData
 
 class LoginPage(BasePage):
     USERNAME_INPUT = '#user-name'
@@ -37,7 +38,7 @@ class LoginPage(BasePage):
 
         if self.is_error_visible():
             return self
-        from pages.Saucedemo.inventory_page import InventoryPage
+        from Saucedemo.pages.inventory_page import InventoryPage
         return InventoryPage(self.page)
     
     def is_login_page_loaded(self) -> bool:
