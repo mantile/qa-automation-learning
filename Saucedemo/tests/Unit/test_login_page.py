@@ -16,7 +16,7 @@ class TestUsersLogin:
     @allure.tag("ui", "login", "standard_user")
     def test_login_standard_user(self, login_page: LoginPage):
         with allure.step("Standart user"):
-            inventory_page = login_page.login(DataFactory.user.standart, DataFactory.user.password)
+            inventory_page = login_page.login(DataFactory.user.standart(), DataFactory.user.password())
 
         with allure.step("Check URL"):
             assert "inventory" in inventory_page.page.url
@@ -31,7 +31,7 @@ class TestUsersLogin:
     @allure.tag("ui", "login", "locked_out_user")    
     def test_login_locked_out_user(self, login_page: LoginPage): 
         with allure.step("Locked user"):
-            login_page.login(DataFactory.user.locked, DataFactory.user.password)
+            login_page.login(DataFactory.user.locked, DataFactory.user.password())
 
         with allure.step("Check URL and error"):
             assert login_page.get_error_message() == 'Epic sadface: Sorry, this user has been locked out.'
@@ -47,7 +47,7 @@ class TestUsersLogin:
     @allure.tag("ui", "login", "problem_user")    
     def test_login_problem_user(self, login_page: LoginPage): 
         with allure.step("Problem user"):
-            inventory_page = login_page.login(DataFactory.user.problem, DataFactory.user.password)
+            inventory_page = login_page.login(DataFactory.user.problem(), DataFactory.user.password())
 
         with allure.step("Check item img"):
             assert "inventory" in inventory_page.page.url
@@ -61,7 +61,7 @@ class TestUsersLogin:
     @allure.description("login without filled username")
     @allure.tag("ui", "login")
     def test_login_with_password(self, login_page: LoginPage):
-        login_page.fill_password(DataFactory.user.password)
+        login_page.fill_password(DataFactory.user.password())
         login_page.click_login_button()
 
         with allure.step("Check error and URL"):
@@ -77,7 +77,7 @@ class TestUsersLogin:
     @allure.description("login without filled password")
     @allure.tag("ui", "login")
     def test_login_with_username(self, login_page: LoginPage):
-        login_page.fill_username(DataFactory.user.standart)
+        login_page.fill_username(DataFactory.user.standart())
         login_page.click_login_button()
 
         with allure.step("Check error and URL"):
