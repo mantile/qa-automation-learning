@@ -28,14 +28,14 @@ def login_page(browser_page):
 @pytest.fixture
 def standard_login(login_page) -> InventoryPage:
     with allure.step("standart user login"):
-        user = DataFactory.user.standart
-        password = DataFactory.user.password
+        user = DataFactory.user.standart()
+        password = DataFactory.user.password()
         return login_page.login(user, password)
 
 @pytest.fixture
 def add_backpack_to_cart(standard_login):
     with allure.step("add backpack to cart"):
-        item = DataFactory.item.backpack
+        item = DataFactory.item.backpack()
         return standard_login.add_item_to_cart(item)
 
 @pytest.fixture

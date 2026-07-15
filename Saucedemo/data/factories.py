@@ -28,7 +28,7 @@ class UserFactory:
     
     @staticmethod
     def password() -> str:
-        return TestData.USERS['password']
+        return TestData.PASSWORDS
     
 class ItemFactory:
 
@@ -58,12 +58,12 @@ class ItemFactory:
     
     @staticmethod
     def all_items() -> list:
-        return [item['item_id'] for item in TestData.ITEMS.values]
+        return [item['item_id'] for item in TestData.ITEMS.values()]
     
     @staticmethod
     def random_item() -> str:
         import random
-        return random.choice(ItemFactory.all_items)
+        return random.choice(ItemFactory.all_items())
     
 class DataFactory:
 

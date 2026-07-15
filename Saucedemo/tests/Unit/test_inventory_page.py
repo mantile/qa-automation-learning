@@ -12,7 +12,7 @@ class TestInventoryPage:
     @allure.title("TC-1: check does cart is empty")
     @allure.description("empty cart")
     @allure.tag("ui", "cart", "standard_user", "inventory")
-    def test_check_empty_cart(standard_login):
+    def test_check_empty_cart(self, standard_login):
 
         with allure.step("Check cart"):
             assert standard_login.is_inventory_visible()  is True
@@ -26,9 +26,9 @@ class TestInventoryPage:
     @allure.title("TC-2: cart count check")
     @allure.description("add random item for cart count check")
     @allure.tag("ui", "cart", "standard_user", "inventory", "badge")
-    def test_add_random_item_to_cart(standard_login):
+    def test_add_random_item_to_cart(self, standard_login):
 
-        standard_login.add_item_to_cart(DataFactory.item.random_item)
+        standard_login.add_item_to_cart(DataFactory.item.random_item())
 
         with allure.step("Check carts badge"):
             assert standard_login.page.locator('.shopping_cart_badge').is_visible()
@@ -42,7 +42,7 @@ class TestInventoryPage:
     @allure.title("TC-3: cart count check")
     @allure.description("add random item for cart count check")
     @allure.tag("ui", "cart", "standard_user", "inventory")
-    def test_go_to_cart(add_backpack_to_cart):
+    def test_go_to_cart(self, add_backpack_to_cart):
 
         cart_page = add_backpack_to_cart.go_to_cart()
 
