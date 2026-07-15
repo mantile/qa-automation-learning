@@ -1,6 +1,7 @@
 import pytest
 
-from Saucedemo.data.test_data import TestData
+from data.factories import DataFactory
+
 
 #TEST CASE 1: Check backpack in cart
 @pytest.mark.xdist_group(name="cart_page_group")
@@ -14,7 +15,7 @@ def test_check_backpack_in_cart(cart_with_backpack):
 @pytest.mark.saucedemo
 @pytest.mark.ui
 def test_remove_backpack_in_cart(cart_with_backpack):
-    cart_with_backpack.remove_item(TestData.ITEMS['backpack']['item_id'])
+    cart_with_backpack.remove_item(DataFactory.item.backpack)
     assert cart_with_backpack.is_cart_empty() is True
 
 #TEST CASE 3: Checkout continue shopping

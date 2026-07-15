@@ -1,5 +1,8 @@
+import allure
+
 from playwright.sync_api import Page
-from Saucedemo.pages.base_page import BasePage
+
+from pages.base_page import BasePage
 
 class InventoryPage(BasePage):
 
@@ -19,22 +22,26 @@ class InventoryPage(BasePage):
         ]
 
     def add_item_to_cart(self, item_id: str):
-        self.page.click(f'[data-test="add-to-cart-{item_id}"]')
-        return self
+        with allure.step("add item to cart"):
+            self.page.click(f'[data-test="add-to-cart-{item_id}"]')
+            return self
     
     def remove_item_from_card(self, item_id: str):
-        self.page.click(f'[data-test="remove-{item_id}"]')
-        return self
+        with allure.step("remove item from cart"):
+            self.page.click(f'[data-test="remove-{item_id}"]')
+            return self
     
     def add_all_items_to_cart(self, items: list):
-        for item in items:
-            self.add_item_to_cart(item)
-        return self
+        with allure.step("add all items on page to cart"):
+            for item in items:
+                self.add_item_to_cart(item)
+            return self
     
     def get_cart_count(self) -> int:
-        if self.page.locator(self.CART_BADGE).is_visible():
-            return int(self.page.locator(self.CART_BADGE).text_content())
-        return 0
+        with allure.step("get cart count"):
+            if self.page.locator(self.CART_BADGE).is_visible():
+                return int(self.page.locator(self.CART_BADGE).text_content())
+            return 0
     
     def go_to_cart(self):
         self.page.click(self.CART_LINK)
@@ -45,10 +52,9 @@ class InventoryPage(BasePage):
         return self.page.locator(self.INVENTORY_LIST).is_visible()
     
     def get_item_name(self, index: int = 0) -> str:
-        return self.page.locator(self.ITEM_NAME).nth(index).text_content()
+        with allure.step("get item name"):
+            return self.page.locator(self.ITEM_NAME).nth(index).text_content()
     
     def get_item_price(self, index: int = 0) -> str:
-        return self.page.locator(self.ITEM_PRICE).nth(index).text_content()
-    
-    # def get_all_datatest_items(self, datatest_name: str):
-    #     return self.page.locator(f'[data-test="{datatest_name}"]').all()
+        with allure.step("get item price"):
+            return self.page.locator(self.ITEM_PRICE).nth(index).text_content()

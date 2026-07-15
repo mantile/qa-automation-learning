@@ -1,7 +1,9 @@
 import allure
 import pytest
 
-from Saucedemo.pages.login_page import LoginPage
+from pages.login_page import LoginPage
+
+from data.factories import DataFactory
 
 @allure.epic("Saucedemo UI")
 @allure.feature("Menu")
@@ -13,7 +15,7 @@ class TestMenu:
     @allure.tag("ui", "menu")
     def test_open_menu(self, login_page: LoginPage):
         with allure.step("Logining as standart user"):
-            inventory_page = login_page.login('standard_user', 'secret_sauce')
+            inventory_page = login_page.login(DataFactory.user.standart, DataFactory.user.password)
             assert "inventory" in inventory_page.page.url
 
         with allure.step("Open menu"):
