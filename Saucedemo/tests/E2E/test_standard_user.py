@@ -7,7 +7,7 @@ from Saucedemo.data.test_data import TestData
 def test_e2e_standard_user_positive_order_flow(login_page):
     username = TestData.USERS['standard']['username']
     password = TestData.PASSWORDS
-    item_name = TestData.ITEMS['backpack']['id']
+    item_name = TestData.ITEMS['backpack']['item_id']
 
     login_page.open_page()
     login_page.fill_username(username)

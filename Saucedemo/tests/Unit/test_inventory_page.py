@@ -16,7 +16,7 @@ def test_empty_cart(standard_login):
 @pytest.mark.saucedemo
 @pytest.mark.ui
 def test_add_backpack_to_cart(standard_login):
-    standard_login.add_item_to_cart(TestData.ITEMS['backpack']['id'])
+    standard_login.add_item_to_cart(TestData.ITEMS['backpack']['item_id'])
     assert standard_login.page.locator('.shopping_cart_badge').is_visible()
     assert standard_login.page.locator('.shopping_cart_badge').text_content() == '1'
 

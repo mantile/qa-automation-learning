@@ -30,7 +30,7 @@ def standard_login(login_page) -> InventoryPage:
 
 @pytest.fixture
 def add_backpack_to_cart(standard_login):
-    item = TestData.ITEMS['backpack']['id']
+    item = TestData.ITEMS['backpack']['item_id']
     return standard_login.add_item_to_cart(item)
 
 @pytest.fixture

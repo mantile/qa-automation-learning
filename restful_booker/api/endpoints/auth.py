@@ -1,4 +1,4 @@
-from api.client import APIClient
+from restful_booker.api.client import APIClient
 
 class AuthEndpoints:
     
