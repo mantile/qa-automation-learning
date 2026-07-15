@@ -1,3 +1,5 @@
+import allure
+
 from playwright.sync_api import Page
 
 from Saucedemo.pages.base_page import BasePage
@@ -20,29 +22,37 @@ class LoginPage(BasePage):
         ]
 
     def fill_username(self, username: str):
-        self.page.fill(self.USERNAME_INPUT, username)
-        return self
+        with allure.step("Fill username"):
+            self.page.fill(self.USERNAME_INPUT, username)
+            return self
 
     def fill_password(self, password: str):
-        self.page.fill(self.PASSWORD_INPUT, password)
-        return self
+        with allure.step("Fill password"):
+            self.page.fill(self.PASSWORD_INPUT, password)
+            return self
     
     def click_login_button(self):
-        self.page.click(self.LOGIN_BUTTON)
-        return InventoryPage(self.page)
+        with allure.step("Press login"):
+            self.page.click(self.LOGIN_BUTTON)
+            return InventoryPage(self.page)
     
     def login(self, username: str, password: str):
-        self.fill_username(username)
-        self.fill_password(password)
-        self.click_login_button()
+        with allure.step("Fill username and password"):
+            self.fill_username(username)
+            self.fill_password(password)
+            self.click_login_button()
 
-        if self.is_error_visible():
-            return self
-        from Saucedemo.pages.inventory_page import InventoryPage
-        return InventoryPage(self.page)
+            if self.is_error_visible():
+                return self
+            from Saucedemo.pages.inventory_page import InventoryPage
+            return InventoryPage(self.page)
     
     def is_login_page_loaded(self) -> bool:
         return (self.is_element_visible(self.USERNAME_INPUT) and
                 self.is_element_visible(self.PASSWORD_INPUT) and
                 self.is_element_visible(self.LOGIN_BUTTON))
+    
+    def close_error_message(self):
+        with allure.step("Close errors message"):
+            self.page.locator('.error-button').click()
     
