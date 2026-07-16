@@ -58,3 +58,6 @@ class InventoryPage(BasePage):
     def get_item_price(self, index: int = 0) -> str:
         with allure.step("get item price"):
             return self.page.locator(self.ITEM_PRICE).nth(index).text_content()
+        
+    def cart_badge(self):
+        return self.page.locator('.shopping_cart_badge')

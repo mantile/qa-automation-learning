@@ -11,18 +11,27 @@ from data.factories import DataFactory
 @pytest.mark.ui
 class TestUsersLogin:
     
-    @allure.title("TC-1: standard_user login")
-    @allure.description("standard login")
-    @allure.tag("ui", "login", "standard_user")
-    def test_login_standard_user(self, login_page: LoginPage):
+    @allure.title("TC-1: valid users login")
+    @allure.description("login all valid users")
+    @allure.tag("ui", "login", "standard_user", "problem_user", "error_user", "visual_user")
+    @pytest.mark.parametrize(
+        "username", 
+        [
+            DataFactory.user.standart(),
+            DataFactory.user.problem(),
+            DataFactory.user.error(),
+            DataFactory.user.visual()
+        ]
+    )
+    def test_login_valid_users(self, username, login_page: LoginPage):
         with allure.step("Standart user"):
-            inventory_page = login_page.login(DataFactory.user.standart(), DataFactory.user.password())
+            inventory_page = login_page.login(username, DataFactory.user.password())
 
         with allure.step("Check URL"):
             assert "inventory" in inventory_page.page.url
             allure.attach(
                 inventory_page.page.screenshot(),
-                name="successful_login",
+                name=f"login_success_{username}",
                 attachment_type=allure.attachment_type.PNG
             )
 
@@ -31,7 +40,7 @@ class TestUsersLogin:
     @allure.tag("ui", "login", "locked_out_user")    
     def test_login_locked_out_user(self, login_page: LoginPage): 
         with allure.step("Locked user"):
-            login_page.login(DataFactory.user.locked, DataFactory.user.password())
+            login_page.login(DataFactory.user.locked(), DataFactory.user.password())
 
         with allure.step("Check URL and error"):
             assert login_page.get_error_message() == 'Epic sadface: Sorry, this user has been locked out.'
@@ -41,70 +50,31 @@ class TestUsersLogin:
                 name="locked_error_login",
                 attachment_type=allure.attachment_type.PNG
             )   
-
-    @allure.title("TC-3: problem_user login")
-    @allure.description("locked login")
-    @allure.tag("ui", "login", "problem_user")    
-    def test_login_problem_user(self, login_page: LoginPage): 
-        with allure.step("Problem user"):
-            inventory_page = login_page.login(DataFactory.user.problem(), DataFactory.user.password())
-
-        with allure.step("Check item img"):
-            assert "inventory" in inventory_page.page.url
-            allure.attach(
-                inventory_page.page.screenshot(),
-                name="problem_user_login",
-                attachment_type=allure.attachment_type.PNG
-            )
         
-    @allure.title("TC-4: login only with password")
-    @allure.description("login without filled username")
-    @allure.tag("ui", "login")
-    def test_login_with_password(self, login_page: LoginPage):
-        login_page.fill_password(DataFactory.user.password())
-        login_page.click_login_button()
+    @allure.title("TC-3: login with empty fills combination")
+    @allure.description("login without filled username, password or password and username")
+    @allure.tag("ui", "login", "negative")
+    @pytest.mark.parametrize(
+        "username, password, error",
+        [
+            pytest.param("", DataFactory.user.password(), "Epic sadface: Username is required", id="password only"),
+            pytest.param(DataFactory.user.standart(), "", "Epic sadface: Password is required", id="login only"),
+            pytest.param("", "", "Epic sadface: Username is required", id="empty fills")
+        ]
+    )
+    def test_login_negative_scenarios(self, username, password, error, login_page: LoginPage):
+        login_page.login(username, password)
 
         with allure.step("Check error and URL"):
-            assert login_page.get_error_message() == "Epic sadface: Username is required"
+            assert login_page.get_error_message() == error
             assert "inventory" not in login_page.page.url
             allure.attach(
                 login_page.page.screenshot(),
-                name="username_missing_error",
+                name=f"login_error_{password}_{username}",
                 attachment_type=allure.attachment_type.PNG
             )
 
-    @allure.title("TC-5: login only with username")
-    @allure.description("login without filled password")
-    @allure.tag("ui", "login")
-    def test_login_with_username(self, login_page: LoginPage):
-        login_page.fill_username(DataFactory.user.standart())
-        login_page.click_login_button()
-
-        with allure.step("Check error and URL"):
-            assert login_page.get_error_message() == "Epic sadface: Password is required"
-            assert "inventory" not in login_page.page.url
-            allure.attach(
-                login_page.page.screenshot(),
-                name="password_missing_error",
-                attachment_type=allure.attachment_type.PNG
-            )
-
-    @allure.title("TC-6: login without fills")
-    @allure.description("login without any fills")
-    @allure.tag("ui", "login")
-    def test_login_without_fills(self, login_page: LoginPage):
-        login_page.click_login_button()
-
-        with allure.step("Check error and URL"):
-            assert login_page.is_error_visible() is True
-            assert "inventory" not in login_page.page.url
-            allure.attach(
-                login_page.page.screenshot(),
-                name="username_password_missing_error",
-                attachment_type=allure.attachment_type.PNG
-            )
-
-    @allure.title("TC-7: close the error message")
+    @allure.title("TC-4: close the error message")
     @allure.description("check the close of error message")
     @allure.tag("ui", "login")
     def test_login_error_closing(self, login_page: LoginPage):

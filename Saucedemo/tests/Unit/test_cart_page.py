@@ -15,7 +15,7 @@ def test_check_backpack_in_cart(cart_with_backpack):
 @pytest.mark.saucedemo
 @pytest.mark.ui
 def test_remove_backpack_in_cart(cart_with_backpack):
-    cart_with_backpack.remove_item(DataFactory.item.backpack)
+    cart_with_backpack.remove_item(DataFactory.item.backpack())
     assert cart_with_backpack.is_cart_empty() is True
 
 #TEST CASE 3: Checkout continue shopping
