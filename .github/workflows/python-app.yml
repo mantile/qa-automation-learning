@@ -94,7 +94,7 @@ jobs:
 
       - name: Run Saucedemo tests
         run: |
-          pytest -m "saucedemo" -v --tb=short --alluredir=allure-results-ui -n auto
+          pytest -m "saucedemo" -v --tb=short --alluredir=allure-results-ui
 
       - name: Upload UI test results
         if: always()
