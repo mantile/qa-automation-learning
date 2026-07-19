@@ -23,17 +23,17 @@ class TestInventoryPageFast:
             pytest.param(DataFactory.item.red_t_shirt_id(), id="red_t_shirt")
         ]
     )
-    def test_open_items_page(self, standard_login_session, item_id):
-        item_page = standard_login_session.open_item_page_by_id(item_id)
+    def test_open_items_page(self, standard_login_class, item_id):
+        item_page = standard_login_class.open_item_page_by_id(item_id)
         with allure.step("checking item page"):
             assert "inventory-item" in item_page.page.url
             allure.attach(
-            standard_login_session.page.screenshot(),
+            standard_login_class.page.screenshot(),
             name=f"{item_id} page",
             attachment_type=allure.attachment_type.PNG
         )
-        standard_login_session.page.go_back()
-        standard_login_session.page.wait_for_load_state("networkidle")
+        standard_login_class.page.go_back()
+        standard_login_class.page.wait_for_load_state("networkidle")
 
 @allure.epic("Saucedemo UI")
 @allure.feature("Inventory page")
