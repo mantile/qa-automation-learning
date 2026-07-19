@@ -86,7 +86,7 @@ jobs:
           TEST_COUNT=$(pytest --collect-only -m "$MARKER" -q 2>/dev/null | grep -c "test_" || true)
           echo "Found $TEST_COUNT tests for marker: $MARKER"
           echo "test_count=$TEST_COUNT" >> $GITHUB_OUTPUT
-          pytest -m "$MARKER" -n 4 -v --tb=short --alluredir=allure-results
+          pytest -m "$MARKER" -v --tb=short --alluredir=allure-results
 
       - name: Upload allure results
         if: always()
