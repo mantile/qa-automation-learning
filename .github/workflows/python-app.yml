@@ -8,10 +8,8 @@ on:
   workflow_dispatch:
 
 jobs:
-  setup:
+  test:
     runs-on: ubuntu-22.04
-    outputs:
-      setup-complete: ${{ steps.setup.outputs.complete }}
     
     steps:
       - name: Checkout code
@@ -32,119 +30,35 @@ jobs:
         run: |
           playwright install --with-deps chromium
 
-      - name: Verify setup
-        id: setup
+      - name: Run RestfulBooker API tests
         run: |
-          python -c "import playwright; print('Playwright installed')"
-          python -c "import requests; print('Requests installed')"
-          echo "complete=true" >> $GITHUB_OUTPUT
+          pytest -m "restfulbooker and api" -v --tb=short --alluredir=allure-results-api
 
-  saucedemo-e2e-tests:
-    needs: setup
-    runs-on: ubuntu-22.04
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
-        with:
-          python-version: "3.11"
-          cache: 'pip'
-      - run: pip install -r requirements.txt
-      - run: playwright install chromium
-      
-      - name: Check and run Saucedemo e2e tests
-        id: saucedemo_smoke
+      - name: Run Saucedemo tests
         run: |
-          MARKER="saucedemo and e2e"
-          TEST_COUNT=$(pytest --collect-only -m "$MARKER" -q 2>/dev/null | grep -c "test_" || true)
-          echo "Found $TEST_COUNT tests for marker: $MARKER"
-          echo "test_count=$TEST_COUNT" >> $GITHUB_OUTPUT
-          pytest -m "$MARKER" -v --tb=short --alluredir=allure-results
+          pytest -m "saucedemo" -v --tb=short --alluredir=allure-results-ui -p no:asyncio
 
-      - name: Upload allure results
+      - name: Merge Allure results
+        run: |
+          mkdir -p allure-results
+          cp allure-results-api/* allure-results/ 2>/dev/null || true
+          cp allure-results-ui/* allure-results/ 2>/dev/null || true
+
+      - name: Upload Allure results
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: allure-results-${{ github.job }}
+          name: allure-results
           path: allure-results
-
-  saucedemo-ui-tests:
-    needs: setup
-    runs-on: ubuntu-22.04
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
-        with:
-          python-version: "3.11"
-          cache: 'pip'
-      - run: pip install -r requirements.txt
-      - run: playwright install chromium
-      
-      - name: Check and run Saucedemo UI tests
-        id: saucedemo_ui
-        run: |
-          MARKER="saucedemo and ui"
-          TEST_COUNT=$(pytest --collect-only -m "$MARKER" -q 2>/dev/null | grep -c "test_" || true)
-          echo "Found $TEST_COUNT tests for marker: $MARKER"
-          echo "test_count=$TEST_COUNT" >> $GITHUB_OUTPUT
-          pytest -m "$MARKER" -v --tb=short --alluredir=allure-results -p no:asyncio
-
-      - name: Upload allure results
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: allure-results-${{ github.job }}
-          path: allure-results
-
-  restfulbooker-api-tests:
-    needs: setup
-    runs-on: ubuntu-22.04
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
-        with:
-          python-version: "3.11"
-          cache: 'pip'
-      - run: pip install -r requirements.txt
-      
-      - name: Check and run RestfulBooker API tests
-        id: restfulbooker_api
-        run: |
-          MARKER="restfulbooker and api"
-          TEST_COUNT=$(pytest --collect-only -m "$MARKER" -q 2>/dev/null | grep -c "test_" || true)
-          echo "Found $TEST_COUNT tests for marker: $MARKER"
-          echo "test_count=$TEST_COUNT" >> $GITHUB_OUTPUT
-          pytest -m "$MARKER" -n 2 -v --tb=short --alluredir=allure-results
-
-      - name: Upload allure results
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: allure-results-${{ github.job }}
-          path: allure-results
-  
-  allure-report:
-    needs:
-      - saucedemo-e2e-tests
-      - saucedemo-ui-tests
-      - restfulbooker-api-tests
-    runs-on: ubuntu-22.04
-    if: always()
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Download all allure results
-        uses: actions/download-artifact@v4
-        with:
-          pattern: allure-results-*
-          merge-multiple: true
 
       - name: Generate Allure report
+        if: always()
         run: |
           npm install -g allure-commandline
           allure generate allure-results -o allure-report --clean
 
       - name: Upload Allure report
+        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: allure-report
