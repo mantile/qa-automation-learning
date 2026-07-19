@@ -61,3 +61,4 @@ class InventoryItemPage(BasePage):
         self.page.click(self.CART_LINK)
         from Saucedemo.pages.cart_page import CartPage
         return CartPage(self.page)
+    

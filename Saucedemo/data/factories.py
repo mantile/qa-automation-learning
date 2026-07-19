@@ -57,13 +57,49 @@ class ItemFactory:
         return TestData.ITEMS['red_t_shirt']['item_id']
     
     @staticmethod
-    def all_items() -> list:
+    def backpack_id() -> str:
+        return TestData.ITEMS['backpack']['id']
+    
+    @staticmethod
+    def bike_light_id() -> str:
+        return TestData.ITEMS['bike_light']['id']
+    
+    @staticmethod
+    def t_shirt_id() -> str:
+        return TestData.ITEMS['t_shirt']['id']
+    
+    @staticmethod
+    def fleece_id() -> str:
+        return TestData.ITEMS['fleece']['id']
+    
+    @staticmethod
+    def onesie_id() -> str:
+        return TestData.ITEMS['onesie']['id']
+    
+    @staticmethod
+    def red_t_shirt_id() -> str:
+        return TestData.ITEMS['red_t_shirt']['id']
+    
+    @staticmethod
+    def all_items_names() -> list:
         return [item['item_id'] for item in TestData.ITEMS.values()]
+    
+    @staticmethod
+    def all_items_id() -> list:
+        return [item['id'] for item in TestData.ITEMS.values()]
     
     @staticmethod
     def random_item() -> str:
         import random
-        return random.choice(ItemFactory.all_items())
+        return random.choice(ItemFactory.all_items_names())
+    
+    @staticmethod
+    def random_items(count: int) -> list:
+        import random
+        all_items = ItemFactory.all_items_names()
+        if count > len(all_items):
+            return all_items
+        return random.sample(all_items, count)
     
 class DataFactory:
 

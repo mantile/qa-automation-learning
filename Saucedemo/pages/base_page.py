@@ -2,6 +2,7 @@ import time
 
 from playwright.sync_api import Page
 
+
 class BasePage:
 
     URL = "https://www.saucedemo.com/"
@@ -74,3 +75,9 @@ class BasePage:
     
     def get_by_datatest(self, selector: str):
         return self.page.locator(f'[data-test="{selector}"]')
+    
+    def click_item_by_datatest(self, selector: str) -> 'InventoryItemPage':
+        self.page.locator(f'[data-test="{selector}"]').click()
+        self.page.wait_for_load_state("networkidle")
+        from Saucedemo.pages.inventory_item_page import InventoryItemPage
+        return InventoryItemPage(self.page)

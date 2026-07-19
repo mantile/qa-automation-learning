@@ -44,9 +44,10 @@ class InventoryPage(BasePage):
             return 0
     
     def go_to_cart(self):
-        self.page.click(self.CART_LINK)
-        from Saucedemo.pages.cart_page import CartPage
-        return CartPage(self.page)
+        with allure.step("opening cart page"):
+            self.page.click(self.CART_LINK)
+            from Saucedemo.pages.cart_page import CartPage
+            return CartPage(self.page)
     
     def is_inventory_visible(self) -> bool:
         return self.page.locator(self.INVENTORY_LIST).is_visible()
@@ -61,3 +62,17 @@ class InventoryPage(BasePage):
         
     def cart_badge(self):
         return self.page.locator('.shopping_cart_badge')
+    
+    def click_sort(self, option: str):
+        with allure.step("pick needed sort type"):
+            return self.get_by_datatest('product-sort-container').select_option(option)
+        
+    def get_prices_as_numbers(self):
+        price_list = self.get_by_datatest(f"inventory-item-price").all_text_contents()
+        return [float(price.replace("$", "")) for price in price_list]
+
+    def open_item_page_by_id(self, item_id) -> 'InventoryItemPage':
+        self.get_by_datatest(f'item-{item_id}-title-link').click()
+        self.page.wait_for_load_state("networkidle")
+        from Saucedemo.pages.inventory_item_page import InventoryItemPage
+        return InventoryItemPage(self.page)

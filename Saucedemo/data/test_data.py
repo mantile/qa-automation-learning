@@ -32,37 +32,37 @@ class TestData:
 
     ITEMS = {
         'backpack': {
-            'id': '1',
+            'id': '4',
             'item_id': 'sauce-labs-backpack',
             'name': 'Sauce Labs Backpack',
             'price': '$29.99'
         },
         'bike_light': {
-            'id': '2',
+            'id': '0',
             'item_id': 'sauce-labs-bike-light',
             'name': 'Sauce Labs Bike Light',
             'price': '$9.99'
         },
         't_shirt': {
-            'id': '3',
+            'id': '1',
             'item_id': 'sauce-labs-bolt-t-shirt',
             'name': 'Sauce Labs Bolt T-Shirt',
             'price': '$15.99'
         },
         'fleece': {
-            'id': '4',
+            'id': '5',
             'item_id': 'sauce-labs-fleece-jacket',
             'name': 'Sauce Labs Fleece Jacket',
             'price': '$49.99'
         },
         'onesie': {
-            'id': '5',
+            'id': '2',
             'item_id': 'sauce-labs-onesie',
             'name': 'Sauce Labs Onesie',
             'price': '$7.99'
         },
         'red_t_shirt': {
-            'id': '6',
+            'id': '3',
             'item_id': 'test.allthethings()-t-shirt-(red)',
             'name': 'Test.allTheThings() T-Shirt (Red)',
             'price': '$15.99'

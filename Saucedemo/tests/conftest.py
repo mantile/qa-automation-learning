@@ -53,3 +53,18 @@ def checkout_with_backpack_complete(checkout_with_backpack) -> CheckoutOverviewP
     with allure.step("go to complite checkout with backpack"):
         checkout_with_backpack.fill_checkout_info()
         return checkout_with_backpack.click_continue()
+
+@pytest.fixture(scope="session")
+def browser_page_session():
+    with sync_playwright() as p:
+        browser = p.chromium.launch()
+        page = browser.new_page()
+        yield page
+        browser.close()
+
+@pytest.fixture(scope="session")
+def standard_login_session(browser_page_session):
+    login_page = LoginPage(browser_page_session).open_page()
+    user = DataFactory.user.standart()
+    password = DataFactory.user.password()
+    return login_page.login(user, password)
