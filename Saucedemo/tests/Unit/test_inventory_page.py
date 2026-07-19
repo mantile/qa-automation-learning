@@ -3,12 +3,43 @@ import pytest
 
 from data.factories import DataFactory
 
+@allure.epic("Saucedemo UI")
+@allure.feature("Inventory page")
+@pytest.mark.saucedemo
+@pytest.mark.ui
+class TestInventoryPageFast:
+
+    @allure.title("TC-6: open item page")
+    @allure.description("check items personal pages")
+    @allure.tag("ui", "inventory", "standard_user", "item page")
+    @pytest.mark.parametrize(
+        "item_id",
+        [
+            pytest.param(DataFactory.item.backpack_id(), id="backpack"),
+            pytest.param(DataFactory.item.bike_light_id(), id="bike_light"),
+            pytest.param(DataFactory.item.t_shirt_id(), id="bolt_t_shirt"),
+            pytest.param(DataFactory.item.fleece_id(), id="fleece_jacket"),
+            pytest.param(DataFactory.item.onesie_id(), id="onesie"),
+            pytest.param(DataFactory.item.red_t_shirt_id(), id="red_t_shirt")
+        ]
+    )
+    def test_open_items_page(self, standard_login_session, item_id):
+        item_page = standard_login_session.open_item_page_by_id(item_id)
+        with allure.step("checking item page"):
+            assert "inventory-item" in item_page.page.url
+            allure.attach(
+            standard_login_session.page.screenshot(),
+            name=f"{item_id} page",
+            attachment_type=allure.attachment_type.PNG
+        )
+        standard_login_session.page.go_back()
+        standard_login_session.page.wait_for_load_state("networkidle")
 
 @allure.epic("Saucedemo UI")
 @allure.feature("Inventory page")
 @pytest.mark.saucedemo
 @pytest.mark.ui
-class TestInventoryPage:
+class TestInventoryPageSafe:
 
     @allure.title("TC-1: check does cart is empty")
     @allure.description("empty cart")
@@ -115,30 +146,4 @@ class TestInventoryPage:
                 attachment_type=allure.attachment_type.PNG
             )
 
-    @allure.title("TC-6: open item page")
-    @allure.description("check items personal pages")
-    @allure.tag("ui", "inventory", "standard_user", "item page")
-    @pytest.mark.parametrize(
-        "item_id",
-        [
-            pytest.param(DataFactory.item.backpack_id(), id="backpack"),
-            pytest.param(DataFactory.item.bike_light_id(), id="bike_light"),
-            pytest.param(DataFactory.item.t_shirt_id(), id="bolt_t_shirt"),
-            pytest.param(DataFactory.item.fleece_id(), id="fleece_jacket"),
-            pytest.param(DataFactory.item.onesie_id(), id="onesie"),
-            pytest.param(DataFactory.item.red_t_shirt_id(), id="red_t_shirt")
-        ]
-    )
-    def test_open_items_page(self, standard_login_session, item_id):
-        from datetime import datetime
-        item_page = standard_login_session.open_item_page_by_id(item_id)
-        with allure.step("checking item page"):
-            assert "inventory-item" in item_page.page.url
-            allure.attach(
-            standard_login_session.page.screenshot(),
-            name=f"{item_id} page",
-            attachment_type=allure.attachment_type.PNG
-        )
-        standard_login_session.page.go_back()
-        standard_login_session.page.wait_for_load_state("networkidle")
-        print(datetime.now())
+    
