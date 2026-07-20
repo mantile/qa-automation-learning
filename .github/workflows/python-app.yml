@@ -9,7 +9,10 @@ on:
 
 jobs:
   setup:
-    runs-on: ubuntu-22.04
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-22.04, windows-latest]
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -39,7 +42,10 @@ jobs:
 
   restfulbooker-api-tests:
     needs: setup
-    runs-on: ubuntu-22.04
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-22.04, windows-latest]
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -65,12 +71,15 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: allure-results-api
+          name: allure-results-api-${{ matrix.os }}
           path: allure-results-api
 
   saucedemo-tests:
     needs: setup
-    runs-on: ubuntu-22.04
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-22.04, windows-latest]
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -100,7 +109,7 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: allure-results-ui
+          name: allure-results-ui-${{ matrix.os }}
           path: allure-results-ui
 
   allure-report:
@@ -113,25 +122,11 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Download API test results
+      - name: Download all allure results
         uses: actions/download-artifact@v4
         with:
-          name: allure-results-api
-          path: allure-results-api
-        continue-on-error: true
-
-      - name: Download UI test results
-        uses: actions/download-artifact@v4
-        with:
-          name: allure-results-ui
-          path: allure-results-ui
-        continue-on-error: true
-
-      - name: Merge Allure results
-        run: |
-          mkdir -p allure-results
-          cp -r allure-results-api/* allure-results/ 2>/dev/null || true
-          cp -r allure-results-ui/* allure-results/ 2>/dev/null || true
+          pattern: allure-results-*
+          merge-multiple: true
 
       - name: Generate Allure report
         run: |
