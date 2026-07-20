@@ -23,3 +23,16 @@ def get_updated_booking_data():
         },
         "additionalneeds": "Dinner"
     }
+
+def get_booking_negative_price():
+    return {
+        "firstname": "John",
+        "lastname": "Doe",
+        "totalprice": -150,
+        "depositpaid": True,
+        "bookingdates": {
+            "checkin": "2025-01-01",
+            "checkout": "2025-01-10"
+        },
+        "additionalneeds": "Breakfast"
+    }

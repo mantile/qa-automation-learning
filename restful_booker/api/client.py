@@ -16,8 +16,15 @@ class APIClient:
                 "Cookie": f"token={token}"
             })
     
-    def _request(self, method, endpoint, data=None, params=None):
+    def _request(
+            self,
+            method,
+            endpoint,
+            data=None,
+            params=None
+    ):
         url = f"{self.BASE_URL}{endpoint}"
+        
         response = self.session.request(
             method=method,
             url=url,

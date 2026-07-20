@@ -1,7 +1,9 @@
 import pytest
 from restful_booker.api.endpoints.auth import AuthEndpoints
 from restful_booker.api.endpoints.booking import BookingEndpoints
+
 from restful_booker.data.api.api_test_data import get_booking_data
+from restful_booker.data.api.api_test_data import get_booking_negative_price
 
 @pytest.fixture
 def auth_endpoints():
@@ -19,6 +21,10 @@ def auth_booking_endpoints(auth_endpoints):
 @pytest.fixture
 def test_booking_data():
     return get_booking_data()
+
+@pytest.fixture
+def test_booking_negative_price():
+    return get_booking_negative_price()
 
 @pytest.fixture
 def created_booking(booking_endpoints, test_booking_data):
